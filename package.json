@@ -1,0 +1,18 @@
+{
+	"name": "server-api",
+	"scripts": {
+		"start": "bun run src/index.ts",
+		"proxy": "ngrok http 3000",
+		"dev": "bun run --hot src/index.ts"
+	},
+	"dependencies": {
+		"better-auth": "^1.3.7",
+		"drizzle-orm": "^0.44.5",
+		"hono": "^4.9.6",
+		"uuid": "^11.1.0"
+	},
+	"devDependencies": {
+		"@types/bun": "^1.2.21",
+		"drizzle-kit": "^0.31.4"
+	}
+}

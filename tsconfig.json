@@ -1,0 +1,19 @@
+{
+	"compilerOptions": {
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["./src/*"]
+		},
+		"strict": true,
+		"jsx": "react-jsx",
+		"composite": false,
+		"noEmit": true,
+		"strictNullChecks": true,
+		"skipLibCheck": true
+		// "jsxImportSource": "hono/jsx",
+	},
+	"include": ["**/*.ts", "**/*.tsx"],
+	"exclude": ["node_modules"]
+}
