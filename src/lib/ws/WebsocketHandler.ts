@@ -31,18 +31,47 @@ WebsocketHandler.get(
 						case "subscribe":
 							rawWs.subscribe(data.topic);
 							console.log(`Client subscribed to ${data.topic}`);
+							ws.send(
+								JSON.stringify({
+									type: "response",
+									topic: data.topic,
+									message: "Subscribed successfully",
+								})
+							);
 							break;
 						case "unsubscribe":
 							rawWs.unsubscribe(data.topic);
 							console.log(`Client unsubscribed from ${data.topic}`);
 							break;
 						case "publish":
-							server.publish(data.topic, data.message);
+							server.publish(
+								data.topic,
+								JSON.stringify({
+									type: "response",
+									topic: data.topic,
+									message: data.message,
+								})
+							);
 							topicRouter.dispatch(
+								c,
 								data.topic,
 								data.action ? data.action : "info",
 								data.message
 							);
+							break;
+						// case "response":
+						// 	console.log("Received response:", data);
+						// 	break;
+						case "ping":
+							ws.send(
+								JSON.stringify({
+									type: "pong",
+									timestamp: new Date().toISOString(),
+								})
+							);
+							break;
+						default:
+							ws.send("Unknown message type");
 							break;
 					}
 				} catch (err) {

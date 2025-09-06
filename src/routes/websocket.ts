@@ -11,7 +11,11 @@ topicRouter.register(
 		console.log("match message", params, payload)
 	// { "type": "subscribe", "topic": "match-N2213" }
 	// { "type": "publish", "topic": "match-N2213", "message": "test" }
-	// { "type": "publish", "topic": "match-N2213", "message": {"homeTeam": "team1", "awayTeam": "team2", "status": "in_progress", "time": 120, "score": {"home": 1, "away": 2}}, "part": "Kwart 1" }
+	// { "type": "publish", "topic": "match-N2213", "message": {"homeTeam": {"name": "team1", "score": 0}, "awayTeam": {"name": "team2", "score": 0}, "status": "in_progress", "time": 120, "part": "Kwart 1" }}
+);
+
+topicRouter.register("scoreBoard-{id}", (params, payload) =>
+	console.log("scoreBoard message", params, payload)
 );
 
 export default topicRouter;

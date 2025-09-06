@@ -1,5 +1,4 @@
 import { Database } from "bun:sqlite";
-import "dotenv/config";
 import { drizzle } from "drizzle-orm/bun-sqlite";
 import * as models from "./models";
 
