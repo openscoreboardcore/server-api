@@ -65,8 +65,13 @@ export default class HandelLiveMatchesLoop {
 					const matchDate = new Date(match.datetime);
 
 					const lowerBound = new Date(matchDate.getTime() - 15 * 60 * 1000); // 15 minutes ago
-					const upperBound = new Date(matchDate.getTime() + 2 * 60 * 60 * 1000); // 2 hours ahead
+					const upperBound = new Date(
+						matchDate.getTime() + 1 * 60 * 60 * 1000 + 40 * 60 * 1000
+					); // 1 hour and 45 minutes ahead
 					const inProgress = match.status === "InProgress";
+					console.log(
+						`Match ${match.id} status: ${match.status}, now: ${now}, matchDate: ${matchDate}, lowerBound: ${lowerBound}, upperBound: ${upperBound}`
+					);
 
 					if ((now > lowerBound && now < upperBound) || inProgress) {
 						matches.push({
