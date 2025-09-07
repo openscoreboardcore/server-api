@@ -136,7 +136,8 @@ export default class HandelLiveMatchesLoop {
 			i++
 		) {
 			const action = match.data.actions[i];
-			const actionTime = new Date(action.actionAt).getTime();
+			const actionTime =
+				new Date(action.actionAt).getTime() + 2 * 60 * 60 * 1000; // action time is in utc but reduces time by 2x utc quick fix
 
 			switch (action.type) {
 				case "start":
