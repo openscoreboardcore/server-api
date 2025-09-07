@@ -40,6 +40,13 @@ WebsocketHandler.get(
 							);
 							break;
 						case "unsubscribe":
+							if (data.topic === "all") {
+								rawWs.close();
+								console.log(
+									`Client unsubscribed from all and connection closed`
+								);
+								break;
+							}
 							rawWs.unsubscribe(data.topic);
 							console.log(`Client unsubscribed from ${data.topic}`);
 							break;
