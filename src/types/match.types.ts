@@ -43,7 +43,7 @@ export interface Team {
 	name: string;
 	gender: string | null;
 	club_name: string;
-	logo: string;
+	logo: string | null;
 	my_team: boolean;
 }
 

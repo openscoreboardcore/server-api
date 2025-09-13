@@ -69,9 +69,9 @@ export default class HandelLiveMatchesLoop {
 						matchDate.getTime() + 1 * 60 * 60 * 1000 + 40 * 60 * 1000
 					); // 1 hour and 45 minutes ahead
 					const inProgress = match.status === "InProgress";
-					console.log(
-						`Match ${match.id} status: ${match.status}, now: ${now}, matchDate: ${matchDate}, lowerBound: ${lowerBound}, upperBound: ${upperBound}`
-					);
+					// console.log(
+					// 	`Match ${match.id} status: ${match.status}, now: ${now}, matchDate: ${matchDate}, lowerBound: ${lowerBound}, upperBound: ${upperBound}`
+					// );
 
 					if ((now > lowerBound && now < upperBound) || inProgress) {
 						matches.push({
@@ -206,12 +206,20 @@ export default class HandelLiveMatchesLoop {
 					homeTeam: {
 						name: match.data.home_team.name,
 						score: match.data.home_score,
-						logo: match.data.home_team.logo,
+						logo:
+							process.env.BETTER_AUTH_URL +
+							"/api/team/" +
+							match.data.home_team.id +
+							"/logo",
 					},
 					awayTeam: {
 						name: match.data.away_team.name,
 						score: match.data.away_score,
-						logo: match.data.away_team.logo,
+						logo:
+							process.env.BETTER_AUTH_URL +
+							"/api/team/" +
+							match.data.away_team.id +
+							"/logo",
 					},
 					status: match.data.status,
 					time: timeString,

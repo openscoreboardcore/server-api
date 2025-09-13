@@ -6,6 +6,7 @@
 		"dev": "bun run --hot src/index.ts"
 	},
 	"dependencies": {
+		"@imgly/background-removal-node": "^1.4.5",
 		"better-auth": "^1.3.8",
 		"drizzle-orm": "^0.44.5",
 		"hono": "^4.9.6",
