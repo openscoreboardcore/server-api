@@ -1,0 +1,59 @@
+{
+	"data": {
+		"id": "N1887226",
+		"datetime": "2025-09-17T12:20:00.000000Z",
+		"location": {
+			"street": "Leo Halleweg",
+			"house_number": "3",
+			"postal_code": "7425NA",
+			"city": "Deventer",
+			"description": "Sportpark 'De Achterhoek'",
+			"facility_id": "N117",
+			"district": "Landelijk"
+		},
+		"home_team": {
+			"id": "N515",
+			"name": "Deventer MO16-2",
+			"gender": null,
+			"club_name": "DHV",
+			"logo": "https://login.lisa-is.nl/support/files/photo/7c0c093e-cad0-4360-adb0-8297ecfffb50.jpg",
+			"my_team": false
+		},
+		"away_team": {
+			"id": "N494",
+			"name": "Flevoland MO16-1",
+			"gender": null,
+			"club_name": "MHC Almelo",
+			"logo": "https://cdn.hockeyweerelt.nl/img/club/N8.jpg",
+			"my_team": false
+		},
+		"home_score": 0,
+		"away_score": 4,
+		"home_shootout": null,
+		"away_shootout": null,
+		"competition": "Meisjes O16 voorcompetitie 1e klasse",
+		"poule": "B",
+		"status": "InProgress",
+		"field": "Veld 1",
+		"actions": [
+			{
+				"side": "both",
+				"action": "match",
+				"type": "start",
+				"actionAt": "2025-09-17T10:20:00.000000Z",
+				"minute": 0,
+				"seconds_since_start": 0,
+				"duration": null,
+				"reason": null,
+				"playerId": null,
+				"playerName": null,
+				"staffId": null,
+				"staffName": ""
+			}
+		],
+		"announcements": [],
+		"facility_official": null
+	},
+	"status": 200,
+	"message": "OK"
+}

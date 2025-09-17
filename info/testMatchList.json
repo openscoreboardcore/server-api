@@ -1,0 +1,1238 @@
+{
+	"data": [
+		{
+			"id": "N1882867",
+			"datetime": "2025-09-06T07:00:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N14145",
+				"name": "Flevoland JO10-Geel",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N21441",
+				"name": "Zwolle JO10-Oranje",
+				"gender": null,
+				"club_name": "HC Zwolle",
+				"logo": "https://login.lisa-is.nl/support/files/photo/f58ac3d6-30fa-4741-850f-183a8949f14f.png",
+				"my_team": false
+			},
+			"home_score": null,
+			"away_score": null,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Jongens O10 voorcompetitie Niveau 1 ",
+			"poule": "B",
+			"status": "Official",
+			"field": "Veld 1",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1885966",
+			"datetime": "2025-09-06T07:00:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N17103",
+				"name": "Flevoland MO10-Paars",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N21476",
+				"name": "Zwolle MO10-Blauw",
+				"gender": null,
+				"club_name": "HC Zwolle",
+				"logo": "https://login.lisa-is.nl/support/files/photo/f58ac3d6-30fa-4741-850f-183a8949f14f.png",
+				"my_team": false
+			},
+			"home_score": null,
+			"away_score": null,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Meisjes O10 voorcompetitie Niveau 1 ",
+			"poule": "K",
+			"status": "Official",
+			"field": "Veld 2",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1886342",
+			"datetime": "2025-09-06T08:15:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N45839",
+				"name": "Flevoland MO11-1",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N46364",
+				"name": "Zwolle MO11-4",
+				"gender": null,
+				"club_name": "HC Zwolle",
+				"logo": "https://login.lisa-is.nl/support/files/photo/f58ac3d6-30fa-4741-850f-183a8949f14f.png",
+				"my_team": false
+			},
+			"home_score": 4,
+			"away_score": 5,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Meisjes O11 Voorcompetitie 4e Klasse",
+			"poule": "B",
+			"status": "Official",
+			"field": "Veld 3",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1886497",
+			"datetime": "2025-09-06T08:30:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N177",
+				"name": "Flevoland MO12-1-mix",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N178",
+				"name": "Meeuwen MO12-1-mix",
+				"gender": null,
+				"club_name": "De Meeuwen",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11LF2.jpg",
+				"my_team": false
+			},
+			"home_score": 9,
+			"away_score": 1,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Meisjes O12 voorcompetitie 2e klasse",
+			"poule": "D",
+			"status": "Official",
+			"field": "Veld 2",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1887068",
+			"datetime": "2025-09-06T08:45:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N3394",
+				"name": "Flevoland MO14-3",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N25906",
+				"name": "Mezen MO14-5",
+				"gender": null,
+				"club_name": "MHC De Mezen",
+				"logo": "https://login.lisa-is.nl/support/files/photo/afad70d0-2932-4b1a-b24e-5b4793a756d5.jpg",
+				"my_team": false
+			},
+			"home_score": 1,
+			"away_score": 2,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Meisjes O14 voorcompetitie 4e klasse",
+			"poule": "C",
+			"status": "Official",
+			"field": "Veld 1",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1883211",
+			"datetime": "2025-09-06T10:15:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N3392",
+				"name": "Flevoland JO14-1",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N4596",
+				"name": "Kampen JO14-1",
+				"gender": null,
+				"club_name": "HC Kampen",
+				"logo": "https://login.lisa-is.nl/support/files/photo/c03151ba-4c2a-4bd4-8d90-4bff2620a1fe.JPG",
+				"my_team": false
+			},
+			"home_score": 10,
+			"away_score": 1,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Jongens O14 voorcompetitie 1e klasse",
+			"poule": "B",
+			"status": "Official",
+			"field": "Veld 3",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1886813",
+			"datetime": "2025-09-06T10:30:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N31",
+				"name": "Flevoland MO14-1",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N21328",
+				"name": "Zwolle MO14-3",
+				"gender": null,
+				"club_name": "HC Zwolle",
+				"logo": "https://login.lisa-is.nl/support/files/photo/f58ac3d6-30fa-4741-850f-183a8949f14f.png",
+				"my_team": false
+			},
+			"home_score": 1,
+			"away_score": 1,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Meisjes O14 voorcompetitie 1e klasse",
+			"poule": "B",
+			"status": "Official",
+			"field": "Veld 2",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1887287",
+			"datetime": "2025-09-06T10:45:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N517",
+				"name": "Flevoland MO16-1",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N790",
+				"name": "Ares MO16-2",
+				"gender": null,
+				"club_name": "HC Ares",
+				"logo": "https://login.lisa-is.nl/support/files/photo/83f7ba77-a428-4daf-b606-ad45d91b344c.png",
+				"my_team": false
+			},
+			"home_score": 2,
+			"away_score": 1,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Meisjes O16 voorcompetitie 2e klasse",
+			"poule": "B",
+			"status": "Official",
+			"field": "Veld 1",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1887951",
+			"datetime": "2025-09-06T12:45:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N17335",
+				"name": "Flevoland MO18-3",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N9147",
+				"name": "Meppel MO18-1",
+				"gender": null,
+				"club_name": "Meppeler HV",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/N185.jpg",
+				"my_team": false
+			},
+			"home_score": 0,
+			"away_score": 7,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Meisjes O18 voorcompetitie 5e klasse",
+			"poule": "C",
+			"status": "Official",
+			"field": "Veld 1",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1860020",
+			"datetime": "2025-09-07T08:55:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N1431",
+				"name": "Flevoland H30-1",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N1535",
+				"name": "Lelystad H30-1",
+				"gender": null,
+				"club_name": "M.H.C. LELYSTAD",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11KM8.jpg",
+				"my_team": false
+			},
+			"home_score": null,
+			"away_score": null,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Heren 30+ 2e klasse",
+			"poule": "A",
+			"status": "Upcoming",
+			"field": "Veld 1",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1853658",
+			"datetime": "2025-09-07T10:45:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N16067",
+				"name": "Flevoland D2-O",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N553",
+				"name": "Hoevelaken D1",
+				"gender": null,
+				"club_name": "M.H.C. Hoevelaken",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/N141.png",
+				"my_team": false
+			},
+			"home_score": null,
+			"away_score": null,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Dames senioren reserve 4e klasse",
+			"poule": "A",
+			"status": "Upcoming",
+			"field": "Veld 1",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1859497",
+			"datetime": "2025-09-07T12:45:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N8722",
+				"name": "Flevoland H2-O",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N7383",
+				"name": "USHC H7",
+				"gender": null,
+				"club_name": "U.S.H.C.",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11QQ4.jpg",
+				"my_team": false
+			},
+			"home_score": null,
+			"away_score": null,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Heren senioren reserve 4e klasse",
+			"poule": "A",
+			"status": "Upcoming",
+			"field": "Veld 1",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1887656",
+			"datetime": "2025-09-09T17:00:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N3387",
+				"name": "Flevoland MO18-1",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N5836",
+				"name": "Oosterbeek MO18-1",
+				"gender": null,
+				"club_name": "M.H.C. Oosterbeek",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/N210.png",
+				"my_team": false
+			},
+			"home_score": null,
+			"away_score": null,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Meisjes O18 voorcompetitie 1e klasse",
+			"poule": "B",
+			"status": "Upcoming",
+			"field": "Veld 3",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1885354",
+			"datetime": "2025-09-13T07:00:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N14140",
+				"name": "Flevoland MO8-Oranje-mix",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N14138",
+				"name": "Meeuwen MO8-1",
+				"gender": null,
+				"club_name": "De Meeuwen",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11LF2.jpg",
+				"my_team": false
+			},
+			"home_score": null,
+			"away_score": null,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Meisjes O8 voorcompetitie Niveau 1  ",
+			"poule": "M",
+			"status": "Upcoming",
+			"field": "Veld 1",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1885520",
+			"datetime": "2025-09-13T07:15:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N3397",
+				"name": "Flevoland MO9-Roze",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N9757",
+				"name": "Dalfsen MO9-1-mix",
+				"gender": null,
+				"club_name": "MHC Dalfsen",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11CT3.jpg",
+				"my_team": false
+			},
+			"home_score": null,
+			"away_score": null,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Meisjes O9 voorcompetitie Niveau 1 ",
+			"poule": "D",
+			"status": "Upcoming",
+			"field": "Veld 1",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1886488",
+			"datetime": "2025-09-13T08:15:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N9232",
+				"name": "Flevoland MO12-2-mix",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N14618",
+				"name": "Hoogeveen MO12-1-mix",
+				"gender": null,
+				"club_name": "Hoogeveen",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11JG3.jpg",
+				"my_team": false
+			},
+			"home_score": null,
+			"away_score": null,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Meisjes O12 voorcompetitie 2e klasse",
+			"poule": "C",
+			"status": "Upcoming",
+			"field": "Veld 3",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1886890",
+			"datetime": "2025-09-13T08:30:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N3393",
+				"name": "Flevoland MO14-2",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N9207",
+				"name": "Kampen MO14-2",
+				"gender": null,
+				"club_name": "HC Kampen",
+				"logo": "https://login.lisa-is.nl/support/files/photo/c03151ba-4c2a-4bd4-8d90-4bff2620a1fe.JPG",
+				"my_team": false
+			},
+			"home_score": null,
+			"away_score": null,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Meisjes O14 voorcompetitie 2e klasse",
+			"poule": "C",
+			"status": "Upcoming",
+			"field": "Veld 2",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1883360",
+			"datetime": "2025-09-13T08:45:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N3390",
+				"name": "Flevoland JO16-1",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N3222",
+				"name": "Ede JO16-2",
+				"gender": null,
+				"club_name": "MHC EDE",
+				"logo": "https://login.lisa-is.nl/support/files/photo/62425fcb-f360-40c7-9d17-6ec26c9fd0f9.png",
+				"my_team": false
+			},
+			"home_score": null,
+			"away_score": null,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Jongens O16 voorcompetitie 2e klasse",
+			"poule": "B",
+			"status": "Upcoming",
+			"field": "Veld 1",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1887789",
+			"datetime": "2025-09-13T10:45:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N3389",
+				"name": "Flevoland MO18-2",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N14544",
+				"name": "Salland MO18-1",
+				"gender": null,
+				"club_name": "SMHC Salland",
+				"logo": null,
+				"my_team": false
+			},
+			"home_score": null,
+			"away_score": null,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Meisjes O18 voorcompetitie 3e klasse",
+			"poule": "C",
+			"status": "Upcoming",
+			"field": "Veld 1",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1837640",
+			"datetime": "2025-09-14T10:30:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N1036",
+				"name": "Flevoland D1",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N402",
+				"name": "Ares D1",
+				"gender": null,
+				"club_name": "HC Ares",
+				"logo": "https://login.lisa-is.nl/support/files/photo/83f7ba77-a428-4daf-b606-ad45d91b344c.png",
+				"my_team": false
+			},
+			"home_score": null,
+			"away_score": null,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Dames senioren 4e klasse",
+			"poule": "B",
+			"status": "Upcoming",
+			"field": "Veld 1",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1854037",
+			"datetime": "2025-09-14T10:45:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N32060",
+				"name": "Flevoland D3",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N20145",
+				"name": "Zwaluwen D8",
+				"gender": null,
+				"club_name": "Zwaluwen Utrecht",
+				"logo": "https://login.lisa-is.nl/support/files/photo/c8e0988c-f4a9-4fee-b998-e7e4719b6074.jpg",
+				"my_team": false
+			},
+			"home_score": null,
+			"away_score": null,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Dames senioren reserve 5e klasse",
+			"poule": "A",
+			"status": "Upcoming",
+			"field": "Veld 2",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1832851",
+			"datetime": "2025-09-14T12:45:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N3385",
+				"name": "Flevoland H1",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N3156",
+				"name": "Drienerlo H1",
+				"gender": null,
+				"club_name": "DHC Drienerlo",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11DM7.jpg",
+				"my_team": false
+			},
+			"home_score": null,
+			"away_score": null,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Heren senioren 3e klasse",
+			"poule": "D",
+			"status": "Upcoming",
+			"field": "Veld 1",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1893308",
+			"datetime": "2025-09-15T22:00:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N9704",
+				"name": "Flevoland DDA",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N32474",
+				"name": "Hilversum DDA",
+				"gender": null,
+				"club_name": "HMHC",
+				"logo": "https://login.lisa-is.nl/support/files/photo/ae40af3a-d97f-4014-b626-b502c7a2ec32.jpg",
+				"my_team": false
+			},
+			"home_score": null,
+			"away_score": null,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Dames Doordeweeks 1e Klasse",
+			"poule": "A",
+			"status": "Upcoming",
+			"field": null,
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1885972",
+			"datetime": "2025-09-20T07:00:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N17103",
+				"name": "Flevoland MO10-Paars",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N17104",
+				"name": "Meeuwen MO10-Rood",
+				"gender": null,
+				"club_name": "De Meeuwen",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11LF2.jpg",
+				"my_team": false
+			},
+			"home_score": null,
+			"away_score": null,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Meisjes O10 voorcompetitie Niveau 1 ",
+			"poule": "K",
+			"status": "Upcoming",
+			"field": "Veld 1",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1885524",
+			"datetime": "2025-09-20T07:00:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N3397",
+				"name": "Flevoland MO9-Roze",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N36022",
+				"name": "Zwolle MO9-Zwart",
+				"gender": null,
+				"club_name": "HC Zwolle",
+				"logo": "https://login.lisa-is.nl/support/files/photo/f58ac3d6-30fa-4741-850f-183a8949f14f.png",
+				"my_team": false
+			},
+			"home_score": null,
+			"away_score": null,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Meisjes O9 voorcompetitie Niveau 1 ",
+			"poule": "D",
+			"status": "Upcoming",
+			"field": "Veld 2",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1886894",
+			"datetime": "2025-09-20T08:45:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N3393",
+				"name": "Flevoland MO14-2",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N31929",
+				"name": "Salland MO14-2-mix",
+				"gender": null,
+				"club_name": "SMHC Salland",
+				"logo": null,
+				"my_team": false
+			},
+			"home_score": null,
+			"away_score": null,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Meisjes O14 voorcompetitie 2e klasse",
+			"poule": "C",
+			"status": "Upcoming",
+			"field": "Veld 1",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1887290",
+			"datetime": "2025-09-20T10:30:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N517",
+				"name": "Flevoland MO16-1",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N21308",
+				"name": "Zwolle MO16-4",
+				"gender": null,
+				"club_name": "HC Zwolle",
+				"logo": "https://login.lisa-is.nl/support/files/photo/f58ac3d6-30fa-4741-850f-183a8949f14f.png",
+				"my_team": false
+			},
+			"home_score": null,
+			"away_score": null,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Meisjes O16 voorcompetitie 2e klasse",
+			"poule": "B",
+			"status": "Upcoming",
+			"field": "Veld 2",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1887957",
+			"datetime": "2025-09-20T10:45:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N17335",
+				"name": "Flevoland MO18-3",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N22428",
+				"name": "Zwolle MO18-8",
+				"gender": null,
+				"club_name": "HC Zwolle",
+				"logo": "https://login.lisa-is.nl/support/files/photo/f58ac3d6-30fa-4741-850f-183a8949f14f.png",
+				"my_team": false
+			},
+			"home_score": null,
+			"away_score": null,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Meisjes O18 voorcompetitie 5e klasse",
+			"poule": "C",
+			"status": "Upcoming",
+			"field": "Veld 1",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1887662",
+			"datetime": "2025-09-20T12:45:00.000000Z",
+			"location": {
+				"street": "Educalaan",
+				"house_number": "17",
+				"postal_code": "8251GC",
+				"city": "Dronten",
+				"description": "Sportpark 'De West'",
+				"facility_id": "N141",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N3387",
+				"name": "Flevoland MO18-1",
+				"gender": null,
+				"club_name": "Flevoland Dronten (M.H.C.)",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/HH11FJ2.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N2176",
+				"name": "Ares MO18-1",
+				"gender": null,
+				"club_name": "HC Ares",
+				"logo": "https://login.lisa-is.nl/support/files/photo/83f7ba77-a428-4daf-b606-ad45d91b344c.png",
+				"my_team": false
+			},
+			"home_score": null,
+			"away_score": null,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Meisjes O18 voorcompetitie 1e klasse",
+			"poule": "B",
+			"status": "Upcoming",
+			"field": "Veld 1",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		},
+		{
+			"id": "N1887226",
+			"datetime": "2025-09-07T00:05:00.000000Z",
+			"location": {
+				"street": "Leo Halleweg",
+				"house_number": "3",
+				"postal_code": "7425NA",
+				"city": "Deventer",
+				"description": "Sportpark 'De Achterhoek'",
+				"facility_id": "N117",
+				"district": "Landelijk"
+			},
+			"home_team": {
+				"id": "N515",
+				"name": "Deventer MO16-2",
+				"gender": null,
+				"club_name": "DHV",
+				"logo": "https://login.lisa-is.nl/support/files/photo/7c0c093e-cad0-4360-adb0-8297ecfffb50.jpg",
+				"my_team": false
+			},
+			"away_team": {
+				"id": "N494",
+				"name": "Almelo MO16-1",
+				"gender": null,
+				"club_name": "MHC Almelo",
+				"logo": "https://cdn.hockeyweerelt.nl/img/club/N8.jpg",
+				"my_team": false
+			},
+			"home_score": 0,
+			"away_score": 4,
+			"home_shootout": null,
+			"away_shootout": null,
+			"competition": "Meisjes O16 voorcompetitie 1e klasse",
+			"poule": "B",
+			"status": "InProgress",
+			"field": "Veld 1",
+			"actions": [],
+			"announcements": [],
+			"facility_official": null
+		}
+	],
+	"links": {
+		"first": "/?page=1",
+		"last": "/?page=1",
+		"prev": null,
+		"next": null
+	},
+	"meta": {
+		"current_page": 1,
+		"from": 1,
+		"last_page": 1,
+		"links": [
+			{
+				"url": null,
+				"label": "&laquo; Previous",
+				"active": false
+			},
+			{
+				"url": "/?page=1",
+				"label": "1",
+				"active": true
+			},
+			{
+				"url": null,
+				"label": "Next &raquo;",
+				"active": false
+			}
+		],
+		"path": "/",
+		"per_page": 500,
+		"to": 29,
+		"total": 29
+	},
+	"status": 200,
+	"message": "OK"
+}
