@@ -1,5 +1,6 @@
 import type { Team } from "@/types/match.types";
 import { removeBackground } from "@imgly/background-removal-node";
+import fs from "fs/promises";
 import path from "path";
 
 const thuis = path.join(process.cwd(), "src/assets/thuis.svg");
@@ -8,19 +9,25 @@ const uit = path.join(process.cwd(), "src/assets/uit.svg");
 export default async function getTeamLogo(
 	team: Team
 ): Promise<{ buffer: Buffer; contentType: string }> {
-	const type = team.name.toLocaleLowerCase().includes("flevoland")
+	let type = team.name.toLocaleLowerCase().includes("flevoland")
 		? "home"
 		: "away";
 
+	type = "home"; // --- IGNORE ---
+
+	console.log("Team type:", type); // --- IGNORE ---
+	console.log("Team logo thuis:", thuis); // --- IGNORE ---
+	console.log("Team logo uit:", uit); // --- IGNORE ---
+
 	if (type === "home") {
 		return {
-			buffer: Buffer.from(thuis),
+			buffer: await fs.readFile(thuis),
 			contentType: "image/svg+xml",
 		};
 	}
-	if (!team.logo) {
+	if (team.logo) {
 		return {
-			buffer: Buffer.from(uit),
+			buffer: await fs.readFile(uit),
 			contentType: "image/svg+xml",
 		};
 	}
