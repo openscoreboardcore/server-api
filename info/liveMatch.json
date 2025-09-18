@@ -447,5 +447,20 @@
     "playerName": null,
     "staffId": null,
     "staffName": ""
-  }
+  },
+  // card example
+    {
+        "side": "away",
+        "action": "card",
+        "type": "card-green",
+        "actionAt": "2025-09-18T17:36:22.000000Z",
+        "minute": 41,
+        "seconds_since_start": 2403,
+        "duration": 120,
+        "reason": null,
+        "playerId": 25475928,
+        "playerName": "Willem van Campen",
+        "staffId": null,
+        "staffName": ""
+      }
 ]
