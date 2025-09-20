@@ -13,12 +13,6 @@ export default async function getTeamLogo(
 		? "home"
 		: "away";
 
-	type = "home"; // --- IGNORE ---
-
-	console.log("Team type:", type); // --- IGNORE ---
-	console.log("Team logo thuis:", thuis); // --- IGNORE ---
-	console.log("Team logo uit:", uit); // --- IGNORE ---
-
 	if (type === "home") {
 		return {
 			buffer: await fs.readFile(thuis),

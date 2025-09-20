@@ -462,5 +462,19 @@
         "playerName": "Willem van Campen",
         "staffId": null,
         "staffName": ""
-      }
+      },
+      {
+        "side": "away",
+        "action": "card",
+        "type": "card-yellow",
+        "actionAt": "2025-09-18T17:52:30.000000Z",
+        "minute": 59,
+        "seconds_since_start": 3488,
+        "duration": 600,
+        "reason": "verbal",
+        "playerId": null,
+        "playerName": "Michel van den Heuvel",
+        "staffId": 405661,
+        "staffName": "Theo Huiskes"
+      },
 ]
