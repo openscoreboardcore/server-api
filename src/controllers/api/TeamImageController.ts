@@ -11,6 +11,8 @@ export class TeamImageController {
 			return c.json({ message: "Team not found" }, 404);
 		}
 
+		console.log("Team found:", team); // --- IGNORE ---
+
 		const teamLogoObject = await getTeamLogo(team.data);
 
 		const body = new Uint8Array(teamLogoObject.buffer);
@@ -20,7 +22,7 @@ export class TeamImageController {
 			status: 200,
 			headers: {
 				"Content-Type": teamLogoObject.contentType,
-				"Cache-Control": "public, max-age=3600", // optional
+				"Cache-Control": "public", // optional , max-age=3600
 			},
 		});
 	}

@@ -19,7 +19,7 @@ export default async function getTeamLogo(
 			contentType: "image/svg+xml",
 		};
 	}
-	if (team.logo) {
+	if (!team.logo) {
 		return {
 			buffer: await fs.readFile(uit),
 			contentType: "image/svg+xml",
