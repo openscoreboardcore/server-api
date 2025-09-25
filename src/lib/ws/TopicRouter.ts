@@ -36,7 +36,7 @@ export class TopicRouter {
 				return true;
 			}
 		}
-		console.warn("No route for topic:", topic);
+		// console.warn("No route for topic:", topic);
 		return false;
 	}
 }

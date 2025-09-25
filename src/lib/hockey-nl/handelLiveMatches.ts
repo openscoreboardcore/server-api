@@ -147,6 +147,11 @@ export default class HandelLiveMatchesLoop {
 						timer.elapsed = 0;
 						timer.currentPart = 1;
 					}
+					console.info(
+						new Date().toTimeString().split(" ")[0],
+						": Match started",
+						new Date(actionTime).toTimeString().split(" ")[0]
+					);
 					break;
 
 				case "start-period":
@@ -155,22 +160,73 @@ export default class HandelLiveMatchesLoop {
 					timer.running = true;
 					timer.lastActionTime = actionTime;
 					timer.elapsed = 0; // reset elapsed for new part
+					console.info(
+						new Date().toTimeString().split(" ")[0],
+						": Period ",
+						timer.currentPart,
+						" started",
+						new Date(actionTime).toTimeString().split(" ")[0]
+					);
 					break;
 
 				case "resume":
 					if (!timer.running) {
 						timer.running = true;
 						timer.lastActionTime = actionTime;
+						console.info(
+							new Date().toTimeString().split(" ")[0],
+							": Match resumed",
+							new Date(actionTime).toTimeString().split(" ")[0]
+						);
 					}
 					break;
 
 				case "pause":
+					console.info(
+						new Date().toTimeString().split(" ")[0],
+						": Match paused",
+						new Date(actionTime).toTimeString().split(" ")[0]
+					);
+					break;
+
 				case "end-period":
+					console.info(
+						new Date().toTimeString().split(" ")[0],
+						": Period ",
+						timer.currentPart,
+						" ended",
+						new Date(actionTime).toTimeString().split(" ")[0]
+					);
+					break;
+
 				case "end":
 					if (timer.running) {
 						timer.elapsed += (actionTime - timer.lastActionTime) / 1000;
 						timer.running = false;
 					}
+					break;
+				case "goal":
+					console.info(
+						new Date().toTimeString().split(" ")[0],
+						": Goal scored by ",
+						action.side || "Unknown",
+						new Date(actionTime).toTimeString().split(" ")[0]
+					);
+					break;
+				case "card":
+					console.info(
+						new Date().toTimeString().split(" ")[0],
+						": Card issued to ",
+						action.playerName || "Unknown",
+						" (",
+						action.type || "Unknown",
+						")",
+						"Reason:",
+						action.reason || "No reason provided",
+						"Duration:",
+						action.duration || "N/A",
+						new Date(actionTime).toTimeString().split(" ")[0]
+					);
 					break;
 			}
 
@@ -233,7 +289,7 @@ export default class HandelLiveMatchesLoop {
 		socket: WebSocketClient,
 		status: "off" | "logo" | "match" | "sponsor" | "schema"
 	) {
-		console.log("Setting screen display to", status);
+		// console.log("Setting screen display to", status);
 		socket.send(
 			JSON.stringify({
 				type: "publish",
