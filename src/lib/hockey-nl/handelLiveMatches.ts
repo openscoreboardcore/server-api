@@ -64,7 +64,7 @@ export default class HandelLiveMatchesLoop {
 					const now = new Date();
 					const matchDate = new Date(match.datetime);
 
-					const lowerBound = new Date(matchDate.getTime() - 15 * 60 * 1000); // 15 minutes ago
+					const lowerBound = new Date(matchDate.getTime() - 360 * 60 * 1000); // 15 minutes ago
 					const upperBound = new Date(
 						matchDate.getTime() + 1 * 60 * 60 * 1000 + 40 * 60 * 1000
 					); // 1 hour and 45 minutes ahead
