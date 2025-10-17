@@ -9,16 +9,20 @@ export async function getMatchesByFacility(
 	const tomorrow = new Date(today);
 	tomorrow.setDate(tomorrow.getDate() + 1);
 	const tomorrowFormatted = tomorrow.toISOString().split("T")[0];
-
-	const response = await fetch(
-		`https://publicaties.hockeyweerelt.nl/mc/facilities/${facilityId}/matches/upcoming?show_all=0&start_date=${todayFormatted}&end_date=${tomorrowFormatted}`
-	);
-	if (!response.ok) {
-		throw new Error(
-			`Error fetching matches for facility ${facilityId}: ${response.statusText}`
+	try {
+		const response = await fetch(
+			`https://publicaties.hockeyweerelt.nl/mc/facilities/${facilityId}/matches/upcoming?show_all=0&start_date=${todayFormatted}&end_date=${tomorrowFormatted}`
 		);
+		if (!response.ok) {
+			throw new Error(
+				`Error fetching matches for facility ${facilityId}: ${response.statusText}`
+			);
+		}
+		return response.json();
+	} catch (error) {
+		console.error("Failed to fetch matches:", error);
 	}
-	return response.json();
+	return {} as MatchListResponse;
 
 	// return (await import(
 	// 	"../../../info/testMatchList.json"
@@ -26,33 +30,43 @@ export async function getMatchesByFacility(
 }
 
 export async function getMatchDetails(matchId: string): Promise<MatchResponse> {
-	const response = await fetch(
-		`https://publicaties.hockeyweerelt.nl/mc/matches/${matchId}?t=${Date.now()}`,
-		{
-			cache: "no-store",
-			headers: {
-				"Cache-Control": "no-cache",
-			},
-		}
-	);
-	if (!response.ok) {
-		throw new Error(
-			`Error fetching match details for match ${matchId}: ${response.statusText}`
+	try {
+		const response = await fetch(
+			`https://publicaties.hockeyweerelt.nl/mc/matches/${matchId}?t=${Date.now()}`,
+			{
+				cache: "no-store",
+				headers: {
+					"Cache-Control": "no-cache",
+				},
+			}
 		);
+		if (!response.ok) {
+			throw new Error(
+				`Error fetching match details for match ${matchId}: ${response.statusText}`
+			);
+		}
+		return response.json();
+	} catch (error) {
+		console.error("Failed to fetch match details:", error);
 	}
-	return response.json();
+	return {} as MatchResponse;
 
 	// return (await import("../../../info/testMatch.json")) as MatchResponse;
 }
 
 export async function getTeamById(teamId: string): Promise<TeamResponse> {
-	const response = await fetch(
-		`https://publicaties.hockeyweerelt.nl/mc/teams/${teamId}`
-	);
-	if (!response.ok) {
-		throw new Error(
-			`Error fetching team details for team ${teamId}: ${response.statusText}`
+	try {
+		const response = await fetch(
+			`https://publicaties.hockeyweerelt.nl/mc/teams/${teamId}`
 		);
+		if (!response.ok) {
+			throw new Error(
+				`Error fetching team details for team ${teamId}: ${response.statusText}`
+			);
+		}
+		return response.json();
+	} catch (error) {
+		console.error("Failed to fetch team details:", error);
 	}
-	return response.json();
+	return {} as TeamResponse;
 }

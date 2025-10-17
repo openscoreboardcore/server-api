@@ -1,6 +1,8 @@
 import ReconnectingWebSocket from "@/lib/ws/WebSocketClient";
 import { Hono } from "hono";
-import { websocket } from "hono/bun";
+import { serveStatic, websocket } from "hono/bun";
+import { logger } from "hono/logger";
+
 import HandelLiveMatchesLoop from "./lib/hockey-nl/handelLiveMatches";
 import api from "./routes/api";
 import web from "./routes/web";
@@ -8,7 +10,18 @@ import web from "./routes/web";
 const app = new Hono();
 
 // Mount like Laravel’s RouteServiceProvider
+app.use("*", logger());
 app.route("/", web);
+app.use("/static/*", serveStatic({ root: "./" }));
+app.use(
+	"/public/*",
+	serveStatic({
+		root: "./",
+		onNotFound: (path, c) => {
+			console.log(`${path} is not found, you access ${c.req.path}`);
+		},
+	})
+);
 app.route("/api", api);
 
 // bun webserver
