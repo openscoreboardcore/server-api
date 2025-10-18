@@ -3,7 +3,6 @@ import { Hono } from "hono";
 import { serveStatic, websocket } from "hono/bun";
 import { logger } from "hono/logger";
 
-import HandelLiveMatchesLoop from "./lib/hockey-nl/handelLiveMatches";
 import api from "./routes/api";
 import web from "./routes/web";
 
@@ -34,6 +33,6 @@ export const server = Bun.serve({
 });
 const ws = new ReconnectingWebSocket("ws://localhost:" + server.port + "/ws");
 
-new HandelLiveMatchesLoop(ws);
+// new HandelLiveMatchesLoop(ws);
 
 console.log(`Server running at http://${server.hostname}:${server.port}`);
