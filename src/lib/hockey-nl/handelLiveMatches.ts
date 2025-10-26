@@ -178,31 +178,31 @@ export default class HandelLiveMatchesLoop {
 					break;
 
 				case "resume":
-					if (!timer.running) {
-						timer.running = true;
-						timer.lastActionTime = actionTime;
-						timer.timeCorrection +=
-							timer.seconds_since_start - action.seconds_since_start;
-						console.info(
-							new Date().toTimeString().split(" ")[0],
-							": Match resumed",
-							new Date(actionTime).toTimeString().split(" ")[0]
-						);
-					}
+					// if (!timer.running) {
+					// 	timer.running = true;
+					// 	timer.lastActionTime = actionTime;
+					// 	timer.timeCorrection +=
+					// 		timer.seconds_since_start - action.seconds_since_start;
+					console.info(
+						new Date().toTimeString().split(" ")[0],
+						": Match resumed",
+						new Date(actionTime).toTimeString().split(" ")[0]
+					);
+					// }
 					break;
 
 				case "pause":
-					if (timer.running) {
-						timer.elapsed += (actionTime - timer.lastActionTime) / 1000;
-						timer.running = false;
-						timer.seconds_since_start = action.seconds_since_start;
+					// if (timer.running) {
+					// 	timer.elapsed += (actionTime - timer.lastActionTime) / 1000;
+					// 	timer.running = false;
+					// 	timer.seconds_since_start = action.seconds_since_start;
 
-						console.info(
-							new Date().toTimeString().split(" ")[0],
-							": Match paused",
-							new Date(actionTime).toTimeString().split(" ")[0]
-						);
-					}
+					console.info(
+						new Date().toTimeString().split(" ")[0],
+						": Match paused",
+						new Date(actionTime).toTimeString().split(" ")[0]
+					);
+					// }
 					break;
 
 				case "end-period":
