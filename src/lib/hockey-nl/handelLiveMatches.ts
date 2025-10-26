@@ -16,9 +16,12 @@ interface CurrentMatches {
 interface MatchTimeState {
 	currentPart: number;
 	lastActionTime: number;
+	lastTimerActionTime: number;
 	running: boolean;
 	elapsed: number;
 	lastActionIndex: number; // new: index of last processed action
+	timeCorrection: number;
+	seconds_since_start: number;
 }
 
 export default class HandelLiveMatchesLoop {
@@ -64,7 +67,7 @@ export default class HandelLiveMatchesLoop {
 					const now = new Date();
 					const matchDate = new Date(match.datetime);
 
-					const lowerBound = new Date(matchDate.getTime() - 150 * 60 * 1000); // 15 minutes ago
+					const lowerBound = new Date(matchDate.getTime() - 15 * 60 * 1000); // 15 minutes ago
 					const upperBound = new Date(
 						matchDate.getTime() + 1 * 60 * 60 * 1000 + 40 * 60 * 1000
 					); // 1 hour and 45 minutes ahead
@@ -116,9 +119,12 @@ export default class HandelLiveMatchesLoop {
 			this.matchTimers[match.data.id] = {
 				currentPart: 1,
 				lastActionTime: Date.now(),
+				lastTimerActionTime: Date.now(),
 				running: false,
 				elapsed: 0,
 				lastActionIndex: -1, // track last processed action
+				timeCorrection: 0,
+				seconds_since_start: 0,
 			};
 		}
 
@@ -137,14 +143,15 @@ export default class HandelLiveMatchesLoop {
 		) {
 			const action = match.data.actions[i];
 			const actionTime =
-				new Date(action.actionAt).getTime() + 2 * 60 * 60 * 1000; // action time is in utc but reduces time by 2x utc quick fix
+				new Date(action.actionAt).getTime() + 1 * 60 * 60 * 1000; // action time is in utc but reduces time by 2x utc quick fix when it is summer time in netherlands
 
 			switch (action.type) {
 				case "start":
 					if (!timer.running) {
 						timer.running = true;
 						timer.lastActionTime = actionTime;
-						timer.elapsed = 0;
+						timer.lastTimerActionTime = actionTime;
+						timer.elapsed = action.seconds_since_start;
 						timer.currentPart = 1;
 					}
 					console.info(
@@ -159,7 +166,8 @@ export default class HandelLiveMatchesLoop {
 					timer.currentPart += 1;
 					timer.running = true;
 					timer.lastActionTime = actionTime;
-					timer.elapsed = 0; // reset elapsed for new part
+					timer.lastTimerActionTime = actionTime;
+					timer.timeCorrection = 0;
 					console.info(
 						new Date().toTimeString().split(" ")[0],
 						": Period ",
@@ -173,6 +181,8 @@ export default class HandelLiveMatchesLoop {
 					if (!timer.running) {
 						timer.running = true;
 						timer.lastActionTime = actionTime;
+						timer.timeCorrection +=
+							timer.seconds_since_start - action.seconds_since_start;
 						console.info(
 							new Date().toTimeString().split(" ")[0],
 							": Match resumed",
@@ -182,11 +192,17 @@ export default class HandelLiveMatchesLoop {
 					break;
 
 				case "pause":
-					console.info(
-						new Date().toTimeString().split(" ")[0],
-						": Match paused",
-						new Date(actionTime).toTimeString().split(" ")[0]
-					);
+					if (timer.running) {
+						timer.elapsed += (actionTime - timer.lastActionTime) / 1000;
+						timer.running = false;
+						timer.seconds_since_start = action.seconds_since_start;
+
+						console.info(
+							new Date().toTimeString().split(" ")[0],
+							": Match paused",
+							new Date(actionTime).toTimeString().split(" ")[0]
+						);
+					}
 					break;
 
 				case "end-period":
@@ -231,13 +247,14 @@ export default class HandelLiveMatchesLoop {
 			}
 
 			// Mark this action as processed
+			timer.seconds_since_start = action.seconds_since_start;
 			timer.lastActionIndex = i;
 		}
 
 		// Update elapsed if running
 		if (timer.running) {
-			timer.elapsed += (Date.now() - timer.lastActionTime) / 1000;
-			timer.lastActionTime = Date.now();
+			timer.elapsed += (Date.now() - timer.lastTimerActionTime) / 1000;
+			timer.lastTimerActionTime = Date.now();
 		}
 
 		// Calculate remaining time for countdown
@@ -249,6 +266,7 @@ export default class HandelLiveMatchesLoop {
 		const minutes = Math.floor(remaining / 60);
 		const seconds = Math.floor(remaining % 60);
 		const timeString = `${minutes}:${seconds.toString().padStart(2, "0")}`;
+		console.log("Remaining time:", timeString);
 
 		// Determine current part
 		const part = `Kwart ${timer.currentPart}`;

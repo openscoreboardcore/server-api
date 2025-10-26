@@ -53,7 +53,7 @@ export interface Action {
 	type: string;
 	actionAt: string;
 	minute: number | null;
-	seconds_since_start: number | null;
+	seconds_since_start: number;
 	duration: number | null;
 	reason: string | null;
 	playerId: string | null;
