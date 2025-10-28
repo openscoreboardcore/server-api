@@ -163,11 +163,13 @@ export default class HandelLiveMatchesLoop {
 
 				case "start-period":
 					// Start new part
+					// if (!timer.running) {
 					timer.currentPart += 1;
 					timer.running = true;
 					timer.lastActionTime = actionTime;
 					timer.lastTimerActionTime = actionTime;
 					timer.timeCorrection = 0;
+					timer.elapsed = 0;
 					console.info(
 						new Date().toTimeString().split(" ")[0],
 						": Period ",
@@ -175,6 +177,7 @@ export default class HandelLiveMatchesLoop {
 						" started",
 						new Date(actionTime).toTimeString().split(" ")[0]
 					);
+					// }
 					break;
 
 				case "resume":
