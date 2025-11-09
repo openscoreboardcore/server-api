@@ -115,7 +115,7 @@ export default class HandelLiveMatchesLoop {
 		const match = this.selectedMatches[field];
 
 		// Initialize timer state if not exists
-		if (!this.matchTimers[match.data.id]) {
+		if (!this.matchTimers || !this.matchTimers[match.data.id]) {
 			this.matchTimers[match.data.id] = {
 				currentPart: 1,
 				lastActionTime: Date.now(),
