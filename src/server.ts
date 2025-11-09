@@ -34,6 +34,6 @@ export const server = Bun.serve({
 });
 const ws = new ReconnectingWebSocket("ws://localhost:" + server.port + "/ws");
 
-new HandelLiveMatchesLoop(ws);
+// new HandelLiveMatchesLoop(ws);
 
 console.log(`Server running at http://${server.hostname}:${server.port}`);
