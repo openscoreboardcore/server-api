@@ -1,13 +1,15 @@
 [phases.setup]
 nixPkgs = ["bun"]
 aptPkgs = [
-  "libvips",
+  "build-essential",
+  "python3",
+  "pkg-config",
   "libvips-dev",
   "libstdc++6"
 ]
 
 [phases.install]
-cmds = ["bun install"]
+cmds = ["npm_config_build_from_source=true bun install"]
 
 [start]
 cmd = "bun run src/index.ts"
