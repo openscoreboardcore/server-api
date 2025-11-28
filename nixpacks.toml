@@ -1,17 +1,13 @@
 [phases.setup]
-nixPkgs = ["bun"]
-aptPkgs = [
-  "libvips",
-  "libvips-dev",
-  "libstdc++6",
-  "libgcc-s1",
-  "libc6"
+nixPkgs = [
+  "bun",
+  "vips",   # <-- This provides libvips + libvips-cpp.so.42
+  "gcc",    # optional but recommended
+  "glibc"   # optional but recommended
 ]
-
 
 [phases.install]
 cmds = ["bun install"]
-
 
 [start]
 cmd = "bun run src/index.ts"
