@@ -1,9 +1,9 @@
 [phases.setup]
-nixPkgs = [
-  "bun",
-  "vips",   # <-- This provides libvips + libvips-cpp.so.42
-  "gcc",    # optional but recommended
-  "glibc"   # optional but recommended
+nixPkgs = ["bun"]
+aptPkgs = [
+  "libvips",
+  "libvips-dev",
+  "libstdc++6"
 ]
 
 [phases.install]
