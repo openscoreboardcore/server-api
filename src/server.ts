@@ -20,7 +20,7 @@ app.use(
 		onNotFound: (path, c) => {
 			console.log(`${path} is not found, you access ${c.req.path}`);
 		},
-	})
+	}),
 );
 app.route("/api", api);
 
@@ -34,6 +34,8 @@ export const server = Bun.serve({
 });
 const ws = new ReconnectingWebSocket("ws://localhost:" + server.port + "/ws");
 
-new HandelLiveMatchesLoop(ws);
+if (process.env.HOCKEY_NL === "true") {
+	new HandelLiveMatchesLoop(ws);
+}
 
 console.log(`Server running at http://${server.hostname}:${server.port}`);
