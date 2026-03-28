@@ -4,16 +4,10 @@ import { Context } from "hono";
 
 export class TeamImageController {
 	static async show(c: Context) {
-		const id = c.req.param("id");
+		const side = c.req.param("id");
+		const url = c.req.param("url");
 
-		const team = await getTeamById(id);
-		if (!team) {
-			return c.json({ message: "Team not found" }, 404);
-		}
-
-		console.log("Team found:", team); // --- IGNORE ---
-
-		const teamLogoObject = await getTeamLogo(team.data);
+		const teamLogoObject = await getTeamLogo(side, url);
 
 		const body = new Uint8Array(teamLogoObject.buffer);
 

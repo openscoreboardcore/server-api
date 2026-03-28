@@ -291,8 +291,10 @@ export default class HandelLiveMatchesLoop {
 						logo:
 							process.env.BETTER_AUTH_URL +
 							"/api/team/" +
-							match.data.home.id +
-							"/logo",
+							"home" +
+							"/logo" +
+							"?url=" +
+							match.data.home.logo,
 					},
 					awayTeam: {
 						name: match.data.away.name,
@@ -300,8 +302,10 @@ export default class HandelLiveMatchesLoop {
 						logo:
 							process.env.BETTER_AUTH_URL +
 							"/api/team/" +
-							match.data.away.id +
-							"/logo",
+							"away" +
+							"/logo" +
+							"?url=" +
+							match.data.away.logo,
 					},
 					status: match.data.status,
 					time: timeString,
