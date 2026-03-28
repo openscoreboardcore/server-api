@@ -294,7 +294,7 @@ export default class HandelLiveMatchesLoop {
 							"home" +
 							"/logo" +
 							"?url=" +
-							match.data.home.logo,
+							Buffer.from(match.data.home.logo, "utf-8").toString("base64"),
 					},
 					awayTeam: {
 						name: match.data.away.name,
@@ -305,7 +305,7 @@ export default class HandelLiveMatchesLoop {
 							"away" +
 							"/logo" +
 							"?url=" +
-							match.data.away.logo,
+							Buffer.from(match.data.away.logo, "utf-8").toString("base64"),
 					},
 					status: match.data.status,
 					time: timeString,

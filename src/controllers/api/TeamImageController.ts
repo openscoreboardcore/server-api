@@ -1,11 +1,11 @@
-import { getTeamById } from "@/lib/hockey-nl/api";
 import getTeamLogo from "@/lib/images";
 import { Context } from "hono";
 
 export class TeamImageController {
 	static async show(c: Context) {
 		const side = c.req.param("id");
-		const url = c.req.param("url");
+		const getParamUrl = c.req.query("url") || "";
+		const url = Buffer.from(getParamUrl, "base64").toString("utf-8");
 
 		const teamLogoObject = await getTeamLogo(side, url);
 
