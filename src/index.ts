@@ -2,7 +2,7 @@
 // import { db } from "./db/db";
 import "./server";
 
-process.env.TZ = "UTC";
+process.env.TZ = "Europe/Amsterdam";
 // migrate(db, {
 // 	migrationsFolder: "./src/db/migrations",
 // });

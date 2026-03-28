@@ -1,65 +1,120 @@
 export interface MatchResponse {
 	data: MatchData;
-	status: number;
-	message: string;
 }
 export interface MatchListResponse {
-	data: MatchData[];
-	status: number;
-	message: string;
+	data: {
+		matches: MatchData[];
+	};
 }
 
 export interface MatchData {
-	id: string;
-	datetime: string;
-	location: Location;
-	home_team: Team;
-	away_team: Team;
-	home_score: number;
-	away_score: number;
-	home_shootout: number | null;
-	away_shootout: number | null;
-	competition: string;
-	poule: string;
+	id: number;
+	date: string;
 	status: string;
-	field: string;
-	actions: Action[];
-	announcements: Announcement[];
-	facility_official: string | null;
-}
+	cancellation_minute: number | null;
 
-export interface Location {
-	street: string;
-	house_number: string;
-	postal_code: string;
-	city: string;
-	description: string;
-	facility_id: string;
-	district: string;
+	home: Team;
+	away: Team;
+	own_team_id: number | null;
+
+	shootouts: ShootoutScore;
+	score: MatchScore;
+
+	location: MatchLocation;
+	actions: MatchAction[];
+
+	poule_name: string | null;
+	poule_id: number;
+	remarks: string | null;
+	competition_name: string | null;
+	gender: string | null;
+
+	role: string;
+	role_name: string | null;
+	announcement: string | null;
+	videos: unknown[];
+
+	round: number;
+	user_action_required: boolean;
+	user_action_description: string | null;
+
+	weather: Weather;
 }
 
 export interface Team {
-	id: string;
+	id: number;
 	name: string;
-	gender: string | null;
-	club_name: string;
-	logo: string | null;
-	my_team: boolean;
+	short_name: string;
+	logo: string;
+	hockey_type: string;
+	category_group_name: string;
+	federation_reference_id: string;
+	recent_poule_id: number;
 }
 
-export interface Action {
+export interface ShootoutScore {
+	home: number;
+	away: number;
+}
+
+export interface MatchScore {
+	home: number;
+	away: number;
+}
+
+export interface MatchLocation {
+	facility: {
+		name: string;
+		address: string;
+	};
+	field: {
+		name: string;
+		type: string;
+	};
+	announcement: string | null;
+}
+
+export interface MatchAction {
+	id: number;
+	match_id: number;
+	action: "match" | "goal" | "card";
+	action_type:
+		| "start"
+		| "pause"
+		| "resume"
+		| "end"
+		| "submit"
+		| "start-period"
+		| "end-period"
+		| "goal"
+		| "card-green"
+		| "card-yellow"
+		| "card-red";
 	side: "home" | "away" | "both";
-	action: "match" | "goal";
-	type: string;
-	actionAt: string;
-	minute: number | null;
+	action_at: string;
 	seconds_since_start: number;
-	duration: number | null;
+	team_id: number;
 	reason: string | null;
-	playerId: string | null;
-	playerName: string | null;
-	staffId: string | null;
-	staffName: string;
+	duration_in_seconds: number | null;
+	person_name: string | null;
+}
+
+export interface Weather {
+	condition_code: string;
+	rating: string;
+	grade: number;
+	temperature: number;
+	temperature_apparent: number;
+	precipitation_type: string;
+	precipitation_chance: number;
+	precipitation_amount: number;
+	humidity: number;
+	description: string;
+	icon: {
+		vector: string;
+		raster: string;
+		name: string;
+	};
 }
 
 export type Announcement = any; // replace with real shape if known

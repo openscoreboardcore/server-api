@@ -1,4 +1,4 @@
-import type { MatchResponse } from "@/types/match.types";
+import type { MatchAction, MatchResponse } from "@/types/match.types";
 import type WebSocketClient from "../ws/WebSocketClient";
 import { getMatchDetails, getMatchesByFacility } from "./api";
 
@@ -28,12 +28,16 @@ export default class HandelLiveMatchesLoop {
 	matchTimers: Record<string, MatchTimeState> = {};
 	selectedMatches: Record<string, MatchResponse> = {}; // fieldId -> matchId
 	fields: string[] = [];
+	apiToken = "";
+	uuid = "";
 
-	constructor(socket: WebSocketClient) {
+	constructor(socket: WebSocketClient, token: string, uuid: string) {
+		this.apiToken = token;
+		this.uuid = uuid;
 		this.handelLiveMatches(socket);
 		setInterval(async () => {
 			this.handelLiveMatches(socket);
-		}, 5000);
+		}, 10000);
 
 		setInterval(async () => {
 			this.fields.forEach((field) => {
@@ -45,7 +49,7 @@ export default class HandelLiveMatchesLoop {
 	async handelLiveMatches(socket: WebSocketClient) {
 		const currentMatches = await this.fetchCurrentMatches();
 		this.fields = Array.from(
-			new Set(currentMatches.map((match) => match.field))
+			new Set(currentMatches.map((match) => match.field)),
 		);
 		if (this.fields.length === 0) {
 			this.setScreenDisplay(socket, "off");
@@ -53,61 +57,72 @@ export default class HandelLiveMatchesLoop {
 		}
 		this.fields.forEach((field) => {
 			const matchesOnField = currentMatches.filter(
-				(match) => match.field === field
+				(match) => match.field === field,
 			);
 			this.handelLiveMatchesData(socket, matchesOnField);
 		});
 	}
 
 	async fetchCurrentMatches(): Promise<CurrentMatches[]> {
-		const matches = [] as CurrentMatches[];
-		await getMatchesByFacility(process.env.FACILITY_ID as string).then(
-			(data) => {
-				data.data.forEach((match) => {
-					const now = new Date();
-					const matchDate = new Date(match.datetime);
+		const matches: CurrentMatches[] = [];
 
-					const lowerBound = new Date(matchDate.getTime() - 15 * 60 * 1000); // 15 minutes ago
-					const upperBound = new Date(
-						matchDate.getTime() + 1 * 60 * 60 * 1000 + 40 * 60 * 1000
-					); // 1 hour and 45 minutes ahead
-					const inProgress = match.status === "InProgress";
-					// console.log(
-					// 	`Match ${match.id} status: ${match.status}, now: ${now}, matchDate: ${matchDate}, lowerBound: ${lowerBound}, upperBound: ${upperBound}`
-					// );
+		const data = await getMatchesByFacility(process.env.FACILITY_ID as string, {
+			token: this.apiToken,
+			uuid: this.uuid,
+		});
 
-					if ((now > lowerBound && now < upperBound) || inProgress) {
-						matches.push({
-							id: match.id,
-							teams: [match.home_team.name, match.away_team.name],
-							score: [match.home_score, match.away_score],
-							time: match.datetime,
-							field: match.field,
-							live: match.status === "InProgress",
-						});
-					}
+		for (const match of data.data.matches) {
+			const now = new Date();
+			const matchDate = new Date(match.date);
+
+			const lowerBound = new Date(matchDate.getTime() - 15 * 60 * 1000);
+			const upperBound = new Date(
+				matchDate.getTime() + 1 * 60 * 60 * 1000 + 40 * 60 * 1000,
+			);
+
+			const inProgress =
+				match.status === "in_progress" || match.status === "InProgress";
+
+			if ((now > lowerBound && now < upperBound) || inProgress) {
+				const matchDetails = await getMatchDetails(match.id.toString(), {
+					token: this.apiToken,
+					uuid: this.uuid,
 				});
+
+				if (matchDetails.data) {
+					matches.push({
+						id: match.id.toString(),
+						teams: [match.home.name, match.away.name],
+						score: [match.score.home, match.score.away],
+						time: match.date,
+						field: matchDetails.data.location.field.name,
+						live: inProgress,
+					});
+				}
 			}
-		);
+		}
 
 		return matches;
 	}
 
 	async handelLiveMatchesData(
 		socket: WebSocketClient,
-		matches: CurrentMatches[]
+		matches: CurrentMatches[],
 	) {
 		const selectedMatch =
 			matches.find((match) => match.live) ||
 			matches.sort((a, b) => a.time.localeCompare(b.time))[0];
-		const match = await getMatchDetails(selectedMatch.id);
+		const match = await getMatchDetails(selectedMatch.id, {
+			token: this.apiToken,
+			uuid: this.uuid,
+		});
 		this.selectedMatches[selectedMatch.field.replace(" ", "").toLowerCase()] =
 			match;
 		this.setScreenDisplay(socket, "match");
 		this.setCurrentMatch(
 			socket,
 			selectedMatch.field.replace(" ", "").toLowerCase(),
-			selectedMatch.id
+			selectedMatch.id,
 		);
 	}
 
@@ -132,7 +147,8 @@ export default class HandelLiveMatchesLoop {
 
 		// Sort actions by time
 		match.data.actions.sort(
-			(a, b) => new Date(a.actionAt).getTime() - new Date(b.actionAt).getTime()
+			(a, b) =>
+				new Date(a.action_at).getTime() - new Date(b.action_at).getTime(),
 		);
 
 		// Process only new actions
@@ -142,10 +158,9 @@ export default class HandelLiveMatchesLoop {
 			i++
 		) {
 			const action = match.data.actions[i];
-			const actionTime =
-				new Date(action.actionAt).getTime() + 1 * 60 * 60 * 1000; // action time is in utc but reduces time by 2x utc quick fix when it is summer time in netherlands
+			const actionTime = new Date(action.action_at).getTime();
 
-			switch (action.type) {
+			switch (action.action_type) {
 				case "start":
 					if (!timer.running) {
 						timer.running = true;
@@ -157,7 +172,7 @@ export default class HandelLiveMatchesLoop {
 					console.info(
 						new Date().toTimeString().split(" ")[0],
 						": Match started",
-						new Date(actionTime).toTimeString().split(" ")[0]
+						new Date(actionTime).toTimeString().split(" ")[0],
 					);
 					break;
 
@@ -175,7 +190,7 @@ export default class HandelLiveMatchesLoop {
 						": Period ",
 						timer.currentPart,
 						" started",
-						new Date(actionTime).toTimeString().split(" ")[0]
+						new Date(actionTime).toTimeString().split(" ")[0],
 					);
 					// }
 					break;
@@ -189,7 +204,7 @@ export default class HandelLiveMatchesLoop {
 					console.info(
 						new Date().toTimeString().split(" ")[0],
 						": Match resumed",
-						new Date(actionTime).toTimeString().split(" ")[0]
+						new Date(actionTime).toTimeString().split(" ")[0],
 					);
 					// }
 					break;
@@ -203,7 +218,7 @@ export default class HandelLiveMatchesLoop {
 					console.info(
 						new Date().toTimeString().split(" ")[0],
 						": Match paused",
-						new Date(actionTime).toTimeString().split(" ")[0]
+						new Date(actionTime).toTimeString().split(" ")[0],
 					);
 					// }
 					break;
@@ -214,7 +229,7 @@ export default class HandelLiveMatchesLoop {
 						": Period ",
 						timer.currentPart,
 						" ended",
-						new Date(actionTime).toTimeString().split(" ")[0]
+						new Date(actionTime).toTimeString().split(" ")[0],
 					);
 					break;
 
@@ -229,23 +244,13 @@ export default class HandelLiveMatchesLoop {
 						new Date().toTimeString().split(" ")[0],
 						": Goal scored by ",
 						action.side || "Unknown",
-						new Date(actionTime).toTimeString().split(" ")[0]
+						new Date(actionTime).toTimeString().split(" ")[0],
 					);
 					break;
-				case "card":
-					console.info(
-						new Date().toTimeString().split(" ")[0],
-						": Card issued to ",
-						action.playerName || "Unknown",
-						" (",
-						action.type || "Unknown",
-						")",
-						"Reason:",
-						action.reason || "No reason provided",
-						"Duration:",
-						action.duration || "N/A",
-						new Date(actionTime).toTimeString().split(" ")[0]
-					);
+				case "card-green":
+				case "card-yellow":
+				case "card-red":
+					this.handelCardAction(action);
 					break;
 			}
 
@@ -281,34 +286,34 @@ export default class HandelLiveMatchesLoop {
 				topic: "match-" + match.data.id,
 				message: {
 					homeTeam: {
-						name: match.data.home_team.name,
-						score: match.data.home_score,
+						name: match.data.home.name,
+						score: match.data.score.home,
 						logo:
 							process.env.BETTER_AUTH_URL +
 							"/api/team/" +
-							match.data.home_team.id +
+							match.data.home.id +
 							"/logo",
 					},
 					awayTeam: {
-						name: match.data.away_team.name,
-						score: match.data.away_score,
+						name: match.data.away.name,
+						score: match.data.score.away,
 						logo:
 							process.env.BETTER_AUTH_URL +
 							"/api/team/" +
-							match.data.away_team.id +
+							match.data.away.id +
 							"/logo",
 					},
 					status: match.data.status,
 					time: timeString,
 					part: part,
 				},
-			})
+			}),
 		);
 	}
 
 	setScreenDisplay(
 		socket: WebSocketClient,
-		status: "off" | "logo" | "match" | "sponsor" | "schema"
+		status: "off" | "logo" | "match" | "sponsor" | "schema",
 	) {
 		// console.log("Setting screen display to", status);
 		socket.send(
@@ -318,7 +323,7 @@ export default class HandelLiveMatchesLoop {
 				message: {
 					status: status,
 				},
-			})
+			}),
 		);
 	}
 
@@ -330,7 +335,21 @@ export default class HandelLiveMatchesLoop {
 				message: {
 					matchId: matchId,
 				},
-			})
+			}),
+		);
+	}
+
+	handelCardAction(action: MatchAction) {
+		console.info(
+			new Date().toTimeString().split(" ")[0],
+			": Card issued to ",
+			action.person_name || "Unknown",
+			" (",
+			action.action_type || "Unknown",
+			")",
+			"Duration:",
+			action.duration_in_seconds || "N/A",
+			new Date(action.action_at).toTimeString().split(" ")[0],
 		);
 	}
 }
