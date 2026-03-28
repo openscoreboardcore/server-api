@@ -75,7 +75,7 @@ export default class HandelLiveMatchesLoop {
 			const now = new Date();
 			const matchDate = new Date(match.date);
 
-			const lowerBound = new Date(matchDate.getTime() - 15 * 60 * 1000);
+			const lowerBound = new Date(matchDate.getTime() - 20 * 60 * 1000);
 			const upperBound = new Date(
 				matchDate.getTime() + 1 * 60 * 60 * 1000 + 40 * 60 * 1000,
 			);
