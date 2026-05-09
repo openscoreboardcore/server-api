@@ -128,6 +128,7 @@ export default class HandelLiveMatchesLoop {
 	async handelWebsocketData(socket: WebSocketClient, field: string) {
 		const match = this.selectedMatches[field];
 		if (!match) {
+			console.error("Match not found for field:", field);
 			return;
 		}
 
