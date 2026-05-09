@@ -277,7 +277,20 @@ export default class HandelLiveMatchesLoop {
 		const minutes = Math.floor(remaining / 60);
 		const seconds = Math.floor(remaining % 60);
 		const timeString = `${minutes}:${seconds.toString().padStart(2, "0")}`;
-		console.log("Remaining time:", timeString);
+		console.log(
+			"MatchId:",
+			match.data.id,
+			"HomeTeam:",
+			match.data.home.name,
+			"Remaining time:",
+			timeString,
+			"Part:",
+			timer.currentPart,
+			"Time Status:",
+			timer.running ? "Running" : "Stopped",
+			"Match Status:",
+			match.data.status,
+		);
 
 		// Determine current part
 		const part = `Kwart ${timer.currentPart}`;
