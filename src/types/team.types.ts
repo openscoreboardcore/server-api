@@ -22,7 +22,7 @@ export interface FacilityAddress {
 export interface FacilityMatch {
 	id: number;
 	date: string;
-	status: "scheduled" | "final" | "result" | "in_progress" | "InProgress";
+	status: "scheduled" | "final" | "result" | "live";
 	cancellation_minute: number | null;
 
 	home: Team;

@@ -80,8 +80,7 @@ export default class HandelLiveMatchesLoop {
 				matchDate.getTime() + 1 * 60 * 60 * 1000 + 40 * 60 * 1000,
 			);
 
-			const inProgress =
-				match.status === "in_progress" || match.status === "InProgress";
+			const inProgress = match.status === "live";
 
 			if ((now > lowerBound && now < upperBound) || inProgress) {
 				const matchDetails = await getMatchDetails(match.id.toString(), {
@@ -128,6 +127,9 @@ export default class HandelLiveMatchesLoop {
 
 	async handelWebsocketData(socket: WebSocketClient, field: string) {
 		const match = this.selectedMatches[field];
+		if (!match) {
+			return;
+		}
 
 		// Initialize timer state if not exists
 		if (!this.matchTimers || !this.matchTimers[match.data.id]) {
