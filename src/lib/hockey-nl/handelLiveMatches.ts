@@ -280,16 +280,16 @@ export default class HandelLiveMatchesLoop {
 		console.log(
 			"MatchId:",
 			match.data.id,
-			"HomeTeam:",
-			match.data.home.name,
-			"Remaining time:",
-			timeString,
 			"Part:",
-			timer.currentPart,
 			"Time Status:",
 			timer.running ? "Running" : "Stopped",
-			"Match Status:",
+			timer.currentPart,
+			"Remaining time:",
+			timeString,
+			"   Match Status:",
 			match.data.status,
+			"   HomeTeam:",
+			match.data.home.name.split(" ")[1],
 		);
 
 		// Determine current part
