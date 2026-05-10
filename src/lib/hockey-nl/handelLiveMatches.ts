@@ -15,13 +15,18 @@ interface CurrentMatches {
 
 interface MatchTimeState {
 	currentPart: number;
-	lastActionTime: number;
-	lastTimerActionTime: number;
-	running: boolean;
+
+	// authoritative elapsed match time from API
 	elapsed: number;
-	lastActionIndex: number; // new: index of last processed action
-	timeCorrection: number;
-	seconds_since_start: number;
+
+	// local timestamp when we synced elapsed
+	syncedAt: number;
+
+	// timer currently running?
+	running: boolean;
+
+	// last processed action
+	lastActionId: number;
 }
 
 export default class HandelLiveMatchesLoop {
@@ -127,129 +132,125 @@ export default class HandelLiveMatchesLoop {
 
 	async handelWebsocketData(socket: WebSocketClient, field: string) {
 		const match = this.selectedMatches[field];
+
 		if (!match) {
 			console.error("Match not found for field:", field);
 			return;
 		}
 
-		// Initialize timer state if not exists
-		if (!this.matchTimers || !this.matchTimers[match.data.id]) {
+		// init timer
+		if (!this.matchTimers[match.data.id]) {
 			this.matchTimers[match.data.id] = {
 				currentPart: 1,
-				lastActionTime: Date.now(),
-				lastTimerActionTime: Date.now(),
-				running: false,
 				elapsed: 0,
-				lastActionIndex: -1, // track last processed action
-				timeCorrection: 0,
-				seconds_since_start: 0,
+				syncedAt: Date.now(),
+				running: false,
+				lastActionId: 0,
 			};
 		}
 
 		const timer = this.matchTimers[match.data.id];
 
-		// Sort actions by time
+		// sort oldest -> newest
 		match.data.actions.sort(
 			(a, b) =>
 				new Date(a.action_at).getTime() - new Date(b.action_at).getTime(),
 		);
 
-		// Process only new actions
-		for (
-			let i = (timer.lastActionIndex ?? -1) + 1;
-			i < match.data.actions.length;
-			i++
-		) {
-			const action = match.data.actions[i];
+		// process ONLY new actions
+		for (const action of match.data.actions) {
+			if (action.id <= timer.lastActionId) {
+				continue;
+			}
+
+			const now = Date.now();
 			const actionTime = new Date(action.action_at).getTime();
+
+			// determine if match should be running AFTER this action
+			switch (action.action_type) {
+				case "start":
+				case "resume":
+				case "start-period":
+					timer.running = true;
+					break;
+
+				case "pause":
+				case "end":
+				case "end-period":
+					timer.running = false;
+					break;
+			}
+
+			// base seconds from API
+			let correctedElapsed = action.seconds_since_start ?? timer.elapsed;
+
+			// IMPORTANT:
+			// compensate for delayed API response
+			// ONLY while running
+			if (timer.running) {
+				correctedElapsed += (now - actionTime) / 1000;
+			}
+
+			// sync timer
+			timer.elapsed = correctedElapsed;
+			timer.syncedAt = now;
 
 			switch (action.action_type) {
 				case "start":
-					if (!timer.running) {
-						timer.running = true;
-						timer.lastActionTime = actionTime;
-						timer.lastTimerActionTime = actionTime;
-						timer.elapsed = action.seconds_since_start;
-						timer.currentPart = 1;
-					}
+					timer.currentPart = 1;
+
 					console.info(
 						new Date().toTimeString().split(" ")[0],
 						": Match started",
-						new Date(actionTime).toTimeString().split(" ")[0],
 					);
 					break;
 
 				case "start-period":
-					// Start new part
-					// if (!timer.running) {
-					timer.currentPart += 1;
-					timer.running = true;
-					timer.lastActionTime = actionTime;
-					timer.lastTimerActionTime = actionTime;
-					timer.timeCorrection = 0;
-					timer.elapsed = 0;
-					console.info(
-						new Date().toTimeString().split(" ")[0],
-						": Period ",
-						timer.currentPart,
-						" started",
-						new Date(actionTime).toTimeString().split(" ")[0],
-					);
-					// }
-					break;
+					// derive current part from total elapsed
+					timer.currentPart =
+						Math.floor((action.seconds_since_start ?? 0) / PART_DURATION) + 1;
 
-				case "resume":
-					// if (!timer.running) {
-					// 	timer.running = true;
-					// 	timer.lastActionTime = actionTime;
-					// 	timer.timeCorrection +=
-					// 		timer.seconds_since_start - action.seconds_since_start;
 					console.info(
 						new Date().toTimeString().split(" ")[0],
-						": Match resumed",
-						new Date(actionTime).toTimeString().split(" ")[0],
+						`: Period ${timer.currentPart} started`,
 					);
-					// }
 					break;
 
 				case "pause":
-					// if (timer.running) {
-					// 	timer.elapsed += (actionTime - timer.lastActionTime) / 1000;
-					// 	timer.running = false;
-					// 	timer.seconds_since_start = action.seconds_since_start;
-
 					console.info(
 						new Date().toTimeString().split(" ")[0],
 						": Match paused",
-						new Date(actionTime).toTimeString().split(" ")[0],
 					);
-					// }
+					break;
+
+				case "resume":
+					console.info(
+						new Date().toTimeString().split(" ")[0],
+						": Match resumed",
+					);
 					break;
 
 				case "end-period":
 					console.info(
 						new Date().toTimeString().split(" ")[0],
-						": Period ",
-						timer.currentPart,
-						" ended",
-						new Date(actionTime).toTimeString().split(" ")[0],
+						`: Period ${timer.currentPart} ended`,
 					);
 					break;
 
 				case "end":
-					if (timer.running) {
-						timer.elapsed += (actionTime - timer.lastActionTime) / 1000;
-						timer.running = false;
-					}
+					console.info(
+						new Date().toTimeString().split(" ")[0],
+						": Match ended",
+					);
 					break;
+
 				case "goal":
 					console.info(
 						new Date().toTimeString().split(" ")[0],
-						": Goal scored by ",
-						action.side || "Unknown",
-						new Date(actionTime).toTimeString().split(" ")[0],
+						`: Goal scored by ${action.side}`,
 					);
 					break;
+
 				case "card-green":
 				case "card-yellow":
 				case "card-red":
@@ -257,45 +258,43 @@ export default class HandelLiveMatchesLoop {
 					break;
 			}
 
-			// Mark this action as processed
-			timer.seconds_since_start = action.seconds_since_start;
-			timer.lastActionIndex = i;
+			timer.lastActionId = action.id;
 		}
 
-		// Update elapsed if running
+		// LOCAL ticking between API updates
 		if (timer.running) {
-			timer.elapsed += (Date.now() - timer.lastTimerActionTime) / 1000;
-			timer.lastTimerActionTime = Date.now();
-		}
+			const now = Date.now();
 
-		// Calculate remaining time for countdown
-		let remaining = Math.max(PART_DURATION - timer.elapsed, 0);
-		if (remaining === 0 && timer.running) {
-			timer.running = false; // stop automatically if countdown finished
+			timer.elapsed += (now - timer.syncedAt) / 1000;
+
+			timer.syncedAt = now;
 		}
+		// remaining countdown
+		const remaining = Math.max(
+			PART_DURATION * timer.currentPart - timer.elapsed,
+			0,
+		);
 
 		const minutes = Math.floor(remaining / 60);
 		const seconds = Math.floor(remaining % 60);
+
 		const timeString = `${minutes}:${seconds.toString().padStart(2, "0")}`;
+
 		console.log(
 			"MatchId:",
 			match.data.id,
 			"Part:",
-			"Time Status:",
-			timer.running ? "Running" : "Stopped",
 			timer.currentPart,
-			"Remaining time:",
+			"Running:",
+			timer.running,
+			"Elapsed:",
+			timer.elapsed.toFixed(1),
+			"Remaining:",
 			timeString,
-			"   Match Status:",
-			match.data.status,
-			"   HomeTeam:",
-			match.data.home.name.split(" ")[1],
 		);
 
-		// Determine current part
 		const part = `Kwart ${timer.currentPart}`;
 
-		// Send update via websocket
 		socket.send(
 			JSON.stringify({
 				type: "publish",
@@ -306,10 +305,7 @@ export default class HandelLiveMatchesLoop {
 						score: match.data.score.home,
 						logo:
 							process.env.BETTER_AUTH_URL +
-							"/api/team/" +
-							"home" +
-							"/logo" +
-							"?url=" +
+							"/api/team/home/logo?url=" +
 							Buffer.from(match.data.home.logo, "utf-8").toString("base64"),
 					},
 					awayTeam: {
@@ -317,15 +313,12 @@ export default class HandelLiveMatchesLoop {
 						score: match.data.score.away,
 						logo:
 							process.env.BETTER_AUTH_URL +
-							"/api/team/" +
-							"away" +
-							"/logo" +
-							"?url=" +
+							"/api/team/away/logo?url=" +
 							Buffer.from(match.data.away.logo, "utf-8").toString("base64"),
 					},
 					status: match.data.status,
 					time: timeString,
-					part: part,
+					part,
 				},
 			}),
 		);
