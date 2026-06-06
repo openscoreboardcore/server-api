@@ -53,6 +53,7 @@ export default class HandelLiveMatchesLoop {
 
 	async handelLiveMatches(socket: WebSocketClient) {
 		const currentMatches = await this.fetchCurrentMatches();
+		console.log("Current matches:", currentMatches);
 		this.fields = Array.from(
 			new Set(currentMatches.map((match) => match.field)),
 		);
