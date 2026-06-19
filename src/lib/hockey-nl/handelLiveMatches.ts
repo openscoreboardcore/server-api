@@ -35,6 +35,7 @@ export default class HandelLiveMatchesLoop {
 	fields: string[] = [];
 	apiToken = "";
 	uuid = "";
+	displayStatus: "off" | "logo" | "match" | "sponsor" | "schema" = "off";
 
 	constructor(socket: WebSocketClient, token: string, uuid: string) {
 		this.apiToken = token;
@@ -45,6 +46,8 @@ export default class HandelLiveMatchesLoop {
 		}, 10000);
 
 		setInterval(async () => {
+			this.setScreenDisplay(socket, this.displayStatus);
+			this.handleClock(socket);
 			this.fields.forEach((field) => {
 				this.handelWebsocketData(socket, field.replace(" ", "").toLowerCase());
 			});
@@ -58,7 +61,18 @@ export default class HandelLiveMatchesLoop {
 			new Set(currentMatches.map((match) => match.field)),
 		);
 		if (this.fields.length === 0) {
-			this.setScreenDisplay(socket, "off");
+			// if weekday between 17:00 and 22:00, show logo, else display off
+			const now = new Date();
+			const hour = now.getHours();
+			const day = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+
+			if (day >= 1 && day <= 5 && hour >= 17 && hour < 22) {
+				this.displayStatus = "logo";
+				// this.setScreenDisplay(socket, "logo");
+			} else {
+				this.displayStatus = "off";
+				// this.setScreenDisplay(socket, "off");
+			}
 			return;
 		}
 		this.fields.forEach((field) => {
@@ -123,7 +137,8 @@ export default class HandelLiveMatchesLoop {
 		});
 		this.selectedMatches[selectedMatch.field.replace(" ", "").toLowerCase()] =
 			match;
-		this.setScreenDisplay(socket, "match");
+		this.displayStatus = "match";
+		// this.setScreenDisplay(socket, "match");
 		this.setCurrentMatch(
 			socket,
 			selectedMatch.field.replace(" ", "").toLowerCase(),
@@ -320,6 +335,24 @@ export default class HandelLiveMatchesLoop {
 					status: match.data.status,
 					time: timeString,
 					part,
+				},
+			}),
+		);
+	}
+
+	handleClock(socket: WebSocketClient) {
+		const now = new Date();
+		const timeString = now.toLocaleTimeString("nl-NL", {
+			hour: "2-digit",
+			minute: "2-digit",
+		});
+
+		socket.send(
+			JSON.stringify({
+				type: "publish",
+				topic: "clock",
+				message: {
+					time: timeString,
 				},
 			}),
 		);
