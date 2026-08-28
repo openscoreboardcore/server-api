@@ -66,7 +66,7 @@ export default class HandelLiveMatchesLoop {
 			const hour = now.getHours();
 			const day = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
 
-			if (day >= 1 && day <= 5 && hour >= 17 && hour < 22) {
+			if (day >= 1 && day <= 5 && hour >= 16 && hour < 22) {
 				this.displayStatus = "logo";
 				// this.setScreenDisplay(socket, "logo");
 			} else {
