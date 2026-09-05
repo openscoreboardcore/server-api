@@ -4,8 +4,12 @@ import { Context } from "hono";
 export class TeamImageController {
 	static async show(c: Context) {
 		const side = c.req.param("id");
-		const getParamUrl = c.req.query("url") || "";
-		const url = Buffer.from(getParamUrl, "base64").toString("utf-8");
+		const getParamUrl = c.req.query("url") || null;
+
+		const url =
+			getParamUrl != null
+				? Buffer.from(getParamUrl, "base64").toString("utf-8")
+				: null;
 
 		const teamLogoObject = await getTeamLogo(side, url);
 

@@ -319,18 +319,12 @@ export default class HandelLiveMatchesLoop {
 					homeTeam: {
 						name: match.data.home.name,
 						score: match.data.score.home,
-						logo:
-							process.env.BETTER_AUTH_URL +
-							"/api/team/home/logo?url=" +
-							Buffer.from(match.data.home.logo, "utf-8").toString("base64"),
+						logo: getTeamLogoUrl("home", match.data.home.logo),
 					},
 					awayTeam: {
 						name: match.data.away.name,
 						score: match.data.score.away,
-						logo:
-							process.env.BETTER_AUTH_URL +
-							"/api/team/away/logo?url=" +
-							Buffer.from(match.data.away.logo, "utf-8").toString("base64"),
+						logo: getTeamLogoUrl("away", match.data.away.logo),
 					},
 					status: match.data.status,
 					time: timeString,
@@ -399,4 +393,17 @@ export default class HandelLiveMatchesLoop {
 			new Date(action.action_at).toTimeString().split(" ")[0],
 		);
 	}
+}
+
+function getTeamLogoUrl(
+	side: "home" | "away",
+	logo: string | null | undefined,
+): string | null {
+	if (!logo) {
+		return `${process.env.BETTER_AUTH_URL}/api/team/${side}/logo`;
+	}
+
+	const encodedLogo = Buffer.from(logo, "utf-8").toString("base64");
+
+	return `${process.env.BETTER_AUTH_URL}/api/team/${side}/logo?url=${encodeURIComponent(encodedLogo)}`;
 }
