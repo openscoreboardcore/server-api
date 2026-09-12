@@ -31,7 +31,7 @@ interface MatchTimeState {
 
 export default class HandelLiveMatchesLoop {
 	matchTimers: Record<string, MatchTimeState> = {};
-	selectedMatches: Record<string, MatchResponse> = {}; // fieldId -> matchId
+	selectedMatches: Record<string, MatchResponse | undefined> = {}; // fieldId -> matchId
 	fields: string[] = [];
 	apiToken = "";
 	uuid = "";
@@ -56,31 +56,36 @@ export default class HandelLiveMatchesLoop {
 
 	async handelLiveMatches(socket: WebSocketClient) {
 		const currentMatches = await this.fetchCurrentMatches();
+
 		console.log("Current matches:", currentMatches);
+
 		this.fields = Array.from(
 			new Set(currentMatches.map((match) => match.field)),
 		);
+
 		if (this.fields.length === 0) {
-			// if weekday between 17:00 and 22:00, show logo, else display off
 			const now = new Date();
 			const hour = now.getHours();
-			const day = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+			const day = now.getDay();
 
 			if (day >= 1 && day <= 5 && hour >= 16 && hour < 22) {
 				this.displayStatus = "logo";
-				// this.setScreenDisplay(socket, "logo");
 			} else {
 				this.displayStatus = "off";
-				// this.setScreenDisplay(socket, "off");
 			}
+
 			return;
 		}
-		this.fields.forEach((field) => {
-			const matchesOnField = currentMatches.filter(
-				(match) => match.field === field,
-			);
-			this.handelLiveMatchesData(socket, matchesOnField);
-		});
+
+		await Promise.all(
+			this.fields.map(async (field) => {
+				const matchesOnField = currentMatches.filter(
+					(match) => match.field === field,
+				);
+
+				await this.handelLiveMatchesData(socket, matchesOnField);
+			}),
+		);
 	}
 
 	async fetchCurrentMatches(): Promise<CurrentMatches[]> {
@@ -135,6 +140,13 @@ export default class HandelLiveMatchesLoop {
 			token: this.apiToken,
 			uuid: this.uuid,
 		});
+		if (!match?.data?.id) {
+			console.error("Could not get match details:", selectedMatch.id, match);
+
+			// BELANGRIJK:
+			// oude geldige match NIET overschrijven
+			return;
+		}
 		this.selectedMatches[selectedMatch.field.replace(" ", "").toLowerCase()] =
 			match;
 		this.displayStatus = "match";
@@ -149,14 +161,17 @@ export default class HandelLiveMatchesLoop {
 	async handelWebsocketData(socket: WebSocketClient, field: string) {
 		const match = this.selectedMatches[field];
 
-		if (!match) {
-			console.error("Match not found for field:", field);
+		if (!match?.data?.id) {
+			console.error("Match data not available for field:", field, match);
 			return;
 		}
 
-		// init timer
-		if (!this.matchTimers[match.data.id]) {
-			this.matchTimers[match.data.id] = {
+		const matchData = match.data;
+
+		// vanaf hier alleen nog matchData gebruiken
+
+		if (!this.matchTimers[matchData.id]) {
+			this.matchTimers[matchData.id] = {
 				currentPart: 1,
 				elapsed: 0,
 				syncedAt: Date.now(),
@@ -165,16 +180,14 @@ export default class HandelLiveMatchesLoop {
 			};
 		}
 
-		const timer = this.matchTimers[match.data.id];
+		const timer = this.matchTimers[matchData.id];
 
-		// sort oldest -> newest
-		match.data.actions.sort(
+		matchData.actions?.sort(
 			(a, b) =>
 				new Date(a.action_at).getTime() - new Date(b.action_at).getTime(),
 		);
 
-		// process ONLY new actions
-		for (const action of match.data.actions) {
+		for (const action of matchData.actions ?? []) {
 			if (action.id <= timer.lastActionId) {
 				continue;
 			}
@@ -182,7 +195,6 @@ export default class HandelLiveMatchesLoop {
 			const now = Date.now();
 			const actionTime = new Date(action.action_at).getTime();
 
-			// determine if match should be running AFTER this action
 			switch (action.action_type) {
 				case "start":
 				case "resume":
@@ -197,24 +209,18 @@ export default class HandelLiveMatchesLoop {
 					break;
 			}
 
-			// base seconds from API
 			let correctedElapsed = action.seconds_since_start ?? timer.elapsed;
 
-			// IMPORTANT:
-			// compensate for delayed API response
-			// ONLY while running
 			if (timer.running) {
 				correctedElapsed += (now - actionTime) / 1000;
 			}
 
-			// sync timer
 			timer.elapsed = correctedElapsed;
 			timer.syncedAt = now;
 
 			switch (action.action_type) {
 				case "start":
 					timer.currentPart = 1;
-
 					console.info(
 						new Date().toTimeString().split(" ")[0],
 						": Match started",
@@ -222,7 +228,6 @@ export default class HandelLiveMatchesLoop {
 					break;
 
 				case "start-period":
-					// derive current part from total elapsed
 					timer.currentPart =
 						Math.floor((action.seconds_since_start ?? 0) / PART_DURATION) + 1;
 
@@ -277,7 +282,6 @@ export default class HandelLiveMatchesLoop {
 			timer.lastActionId = action.id;
 		}
 
-		// LOCAL ticking between API updates
 		if (timer.running) {
 			const now = Date.now();
 
@@ -285,7 +289,7 @@ export default class HandelLiveMatchesLoop {
 
 			timer.syncedAt = now;
 		}
-		// remaining countdown
+
 		const remaining = Math.max(
 			PART_DURATION * timer.currentPart - timer.elapsed,
 			0,
@@ -298,7 +302,7 @@ export default class HandelLiveMatchesLoop {
 
 		console.log(
 			"MatchId:",
-			match.data.id,
+			matchData.id,
 			"Part:",
 			timer.currentPart,
 			"Running:",
@@ -314,19 +318,19 @@ export default class HandelLiveMatchesLoop {
 		socket.send(
 			JSON.stringify({
 				type: "publish",
-				topic: "match-" + match.data.id,
+				topic: "match-" + matchData.id,
 				message: {
 					homeTeam: {
-						name: match.data.home.name,
-						score: match.data.score.home,
-						logo: getTeamLogoUrl("home", match.data.home.logo),
+						name: matchData.home.name,
+						score: matchData.score.home,
+						logo: getTeamLogoUrl("home", matchData.home.logo),
 					},
 					awayTeam: {
-						name: match.data.away.name,
-						score: match.data.score.away,
-						logo: getTeamLogoUrl("away", match.data.away.logo),
+						name: matchData.away.name,
+						score: matchData.score.away,
+						logo: getTeamLogoUrl("away", matchData.away.logo),
 					},
-					status: match.data.status,
+					status: matchData.status,
 					time: timeString,
 					part,
 				},
