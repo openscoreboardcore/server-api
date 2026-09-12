@@ -60,6 +60,9 @@ if (process.env.HOCKEY_NL === "true") {
 				new HandelLiveMatchesLoop(ws, data.token, devicdeId);
 			} else {
 				console.error("No token received in response:", data);
+				setTimeout(() => {
+					process.exit(0);
+				}, 60000);
 			}
 		});
 	});
