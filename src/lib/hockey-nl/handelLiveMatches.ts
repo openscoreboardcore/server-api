@@ -95,7 +95,10 @@ export default class HandelLiveMatchesLoop {
 			token: this.apiToken,
 			uuid: this.uuid,
 		});
-
+		// console.log(data.data.matches);
+		if (data.data.matches === undefined) {
+			return matches;
+		}
 		for (const match of data.data.matches) {
 			const now = new Date();
 			const matchDate = new Date(match.date);
@@ -112,7 +115,6 @@ export default class HandelLiveMatchesLoop {
 					token: this.apiToken,
 					uuid: this.uuid,
 				});
-
 				if (matchDetails.data) {
 					matches.push({
 						id: match.id.toString(),
