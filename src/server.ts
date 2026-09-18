@@ -3,8 +3,8 @@ import { Hono } from "hono";
 import { serveStatic, websocket } from "hono/bun";
 import { logger } from "hono/logger";
 
-import { randomUUIDv7 } from "bun";
 import HandelLiveMatchesLoop from "./lib/hockey-nl/handelLiveMatches";
+import getHockeyAuth from "./lib/hockey-nl/knhbAuth";
 import api from "./routes/api";
 import web from "./routes/web";
 
@@ -36,36 +36,17 @@ export const server = Bun.serve({
 const ws = new ReconnectingWebSocket("ws://localhost:" + server.port + "/ws");
 
 if (process.env.HOCKEY_NL === "true") {
-	const devicdeId = randomUUIDv7();
-	fetch("https://app.hockeyweerelt.nl/device/register", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({
-			uuid: devicdeId,
-			os: "Web",
-		}),
-	}).then((res) => {
-		if (!res.ok) {
-			console.error("Failed to register device:", res.statusText);
-		} else {
-			console.log("Device registered successfully with ID:", devicdeId);
-		}
+	try {
+		const auth = await getHockeyAuth();
 
-		res.json().then((data) => {
-			if (data.token) {
-				console.log("Received API token:", data.token);
+		new HandelLiveMatchesLoop(ws, auth.token, auth.deviceId);
+	} catch (error) {
+		console.error("Failed to initialize HockeyWeerelt:", error);
 
-				new HandelLiveMatchesLoop(ws, data.token, devicdeId);
-			} else {
-				console.error("No token received in response:", data);
-				setTimeout(() => {
-					process.exit(0);
-				}, 180000);
-			}
-		});
-	});
+		setTimeout(() => {
+			process.exit(1);
+		}, 180000);
+	}
 }
 
 console.log(`Server running at http://${server.hostname}:${server.port}`);

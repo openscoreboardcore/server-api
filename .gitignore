@@ -8,3 +8,5 @@ mydb.sqlite
 .idea/
 .devdbrc
 # info/
+
+hockey-token.json
