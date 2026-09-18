@@ -9,4 +9,4 @@ mydb.sqlite
 .devdbrc
 # info/
 
-hockey-token.json
+storage/

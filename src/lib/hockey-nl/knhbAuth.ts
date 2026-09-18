@@ -1,6 +1,6 @@
 import { randomUUIDv7 } from "bun";
 
-const TOKEN_FILE = "./hockey-token.json";
+const TOKEN_FILE = "./storage/hockey-token.json";
 
 interface HockeyAuth {
 	deviceId: string;
