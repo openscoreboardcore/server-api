@@ -96,7 +96,8 @@ export default class HandelLiveMatchesLoop {
 			uuid: this.uuid,
 		});
 		// console.log(data.data.matches);
-		if (typeof data.data.matches === undefined) {
+		if (!data?.data?.matches) {
+			console.warn("Invalid Hockey NL response:", data);
 			return matches;
 		}
 		for (const match of data.data.matches) {
