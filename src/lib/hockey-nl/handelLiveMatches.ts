@@ -57,6 +57,10 @@ export default class HandelLiveMatchesLoop {
 	async handelLiveMatches(socket: WebSocketClient) {
 		const currentMatches = await this.fetchCurrentMatches();
 
+		if (currentMatches === null) {
+			return;
+		}
+
 		console.log("Current matches:", currentMatches);
 
 		this.fields = Array.from(
@@ -88,7 +92,7 @@ export default class HandelLiveMatchesLoop {
 		);
 	}
 
-	async fetchCurrentMatches(): Promise<CurrentMatches[]> {
+	async fetchCurrentMatches(): Promise<CurrentMatches[] | null> {
 		const matches: CurrentMatches[] = [];
 
 		const data = await getMatchesByFacility(process.env.FACILITY_ID as string, {
@@ -96,10 +100,11 @@ export default class HandelLiveMatchesLoop {
 			uuid: this.uuid,
 		});
 		// console.log(data.data.matches);
-		if (!data?.data?.matches) {
+		if (!data?.data) {
 			console.warn("Invalid Hockey NL response:", data);
-			return matches;
+			return null;
 		}
+
 		for (const match of data.data.matches) {
 			const now = new Date();
 			const matchDate = new Date(match.date);

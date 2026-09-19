@@ -186,7 +186,7 @@ export async function getMatchesByFacility(
 	const tomorrow = new Date(today);
 	tomorrow.setDate(tomorrow.getDate() + 1);
 	const tomorrowFormatted = tomorrow.toISOString().split("T")[0];
-
+	// https://app.hockeyweerelt.nl/facilities/141/matches?filter[dateStart]=2026-09-19&filter[dateEnd]=2026-10-03
 	try {
 		return await hockeyFetch<FacilityResponse>(
 			`/facilities/${facilityId}/matches`,
