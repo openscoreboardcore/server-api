@@ -32,6 +32,14 @@ async function saveAuth(auth: HockeyAuth): Promise<void> {
 	await Bun.write(TOKEN_FILE, JSON.stringify(auth, null, 2));
 }
 
+export async function resetAuthAndRestart(): Promise<void> {
+	const file = Bun.file(TOKEN_FILE);
+	if (await file.exists()) {
+		file.delete();
+	}
+	process.exit(1);
+}
+
 async function registerDevice(): Promise<HockeyAuth> {
 	const deviceId = randomUUIDv7();
 

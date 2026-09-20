@@ -3,6 +3,7 @@ import crypto from "crypto";
 import type { MatchResponse, Team } from "@/types/match.types";
 
 import type { FacilityResponse } from "@/types/team.types";
+import { resetAuthAndRestart } from "./knhbAuth";
 
 export interface HockeyAuth {
 	token: string;
@@ -218,6 +219,10 @@ async function executeHockeyRequest<T>(
 		await response.text().catch(() => undefined);
 
 		throw new HockeyApiError(`Rate limited for ${waitMs}ms`, 429, response.url);
+	}
+
+	if (response.status === 401) {
+		await resetAuthAndRestart();
 	}
 
 	if (!response.ok) {
