@@ -153,7 +153,6 @@ export default class HandelLiveMatchesLoop {
 
 	private readonly knownFields = new Set<string>();
 
-	private displayStatus: DisplayStatus = "off";
 
 	private stopped = false;
 
@@ -258,11 +257,6 @@ export default class HandelLiveMatchesLoop {
 	}
 
 	private handleDisplayTick(): void {
-		this.displayStatus = this.hasSelectedMatches()
-			? "match"
-			: this.getIdleDisplayStatus();
-		// Legacy global topic; field-specific screens should use field-{id}.
-		this.setScreenDisplay(this.displayStatus);
 		this.handleClock();
 
 		for (const fieldId of this.knownFields) {
@@ -313,9 +307,6 @@ export default class HandelLiveMatchesLoop {
 			if (newId) this.handleWebsocketData(fieldId);
 		}
 
-		this.displayStatus = this.hasSelectedMatches()
-			? "match"
-			: this.getIdleDisplayStatus();
 	}
 
 	private publishFieldState(fieldId: string): void {
@@ -429,12 +420,6 @@ export default class HandelLiveMatchesLoop {
 
 	// -------------------------------------------------------------------------
 
-	private hasSelectedMatches(): boolean {
-		for (const fieldId of this.knownFields) {
-			if (this.selectedMatches[fieldId]?.data?.id) return true;
-		}
-		return false;
-	}
 
 	private async refreshLiveMatches(): Promise<void> {
 		for (const fieldId of this.knownFields) {
@@ -909,9 +894,6 @@ export default class HandelLiveMatchesLoop {
 		this.publish("clock", { time });
 	}
 
-	private setScreenDisplay(status: DisplayStatus): void {
-		this.publish("screen-1", { status });
-	}
 
 	// -------------------------------------------------------------------------
 

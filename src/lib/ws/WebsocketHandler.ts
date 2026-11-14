@@ -49,6 +49,16 @@ WebsocketHandler.get(
 										message: retained,
 									}),
 								);
+							} else if (typeof data.topic === "string" && /^field-veld\d+$/.test(data.topic)) {
+								// No match has been discovered for this field yet.
+								// Respond immediately rather than leaving the client waiting.
+								const now = new Date();
+								const idleStatus = now.getDay() >= 1 && now.getDay() <= 5 && now.getHours() >= 16 && now.getHours() < 22 ? "logo" : "off";
+								ws.send(JSON.stringify({
+									type: "response",
+									topic: data.topic,
+									message: { fieldId: data.topic.slice(6), matchId: null, status: idleStatus },
+								}));
 							}
 							break;
 						case "unsubscribe":
