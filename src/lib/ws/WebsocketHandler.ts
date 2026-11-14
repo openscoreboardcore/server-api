@@ -3,6 +3,7 @@ import type { ServerWebSocket } from "bun";
 import { Hono } from "hono";
 import { upgradeWebSocket } from "hono/bun";
 import { server } from "../../server";
+import { getRetainedTopic } from "./RetainedTopics";
 
 const WebsocketHandler = new Hono();
 
@@ -36,17 +37,44 @@ WebsocketHandler.get(
 									type: "response",
 									topic: data.topic,
 									message: "Subscribed successfully",
-								})
+								}),
 							);
+							const retained = getRetainedTopic(data.topic);
+
+							if (retained !== undefined) {
+								ws.send(
+									JSON.stringify({
+										type: "response",
+										topic: data.topic,
+										message: retained,
+									}),
+								);
+							}
 							break;
 						case "unsubscribe":
 							if (data.topic === "all") {
 								rawWs.close();
 								console.log(
-									`Client unsubscribed from all and connection closed`
+									`Client unsubscribed from all and connection closed`,
 								);
 								break;
 							}
+							if (data.topic === "match-*") {
+								const matchTopics = rawWs.subscriptions.filter((topic) =>
+									topic.startsWith("match-"),
+								);
+
+								for (const topic of matchTopics) {
+									rawWs.unsubscribe(topic);
+								}
+
+								console.log(
+									`Client unsubscribed from ${matchTopics.length} match topics`,
+								);
+
+								break;
+							}
+
 							rawWs.unsubscribe(data.topic);
 							console.log(`Client unsubscribed from ${data.topic}`);
 							break;
@@ -57,13 +85,14 @@ WebsocketHandler.get(
 									type: "response",
 									topic: data.topic,
 									message: data.message,
-								})
+								}),
 							);
+							// retainTopic(data.topic, data.message); // this is placed in handelLiveMatches
 							topicRouter.dispatch(
 								c,
 								data.topic,
 								data.action ? data.action : "info",
-								data.message
+								data.message,
 							);
 							break;
 						// case "response":
@@ -74,7 +103,7 @@ WebsocketHandler.get(
 								JSON.stringify({
 									type: "pong",
 									timestamp: new Date().toISOString(),
-								})
+								}),
 							);
 							break;
 						default:
@@ -87,7 +116,7 @@ WebsocketHandler.get(
 				}
 			},
 		};
-	})
+	}),
 );
 
 // { "type": "subscribe", "topic": "news" }

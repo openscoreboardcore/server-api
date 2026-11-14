@@ -15,7 +15,7 @@ const topicRouter = new TopicRouter();
 // );
 
 topicRouter.register("scoreBoard-{id}", (params, payload) =>
-	console.log("scoreBoard message", params, payload)
+	console.log("scoreBoard message", params, payload),
 );
 
 export default topicRouter;
