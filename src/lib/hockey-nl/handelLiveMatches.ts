@@ -842,6 +842,14 @@ export default class HandelLiveMatchesLoop {
 // -----------------------------------------------------------------------------
 
 function normalizeFieldId(field: string): string {
+	const match = field.match(/\bveld\s*[-_ ]?\s*(\d+)\b/i);
+
+	if (match) {
+		return `veld${Number(match[1])}`;
+	}
+
+	console.warn(`[HockeyNL] Unknown field name: "${field}"`);
+
 	return field.replace(/\s+/g, "").toLowerCase();
 }
 
